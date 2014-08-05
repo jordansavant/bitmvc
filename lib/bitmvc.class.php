@@ -25,6 +25,9 @@ class BitMvc
         $this->modelDir = $this->rootDir."model/";
         $this->viewDir = $this->rootDir."view/";
         $this->controllerDir = $this->rootDir."controller/";
+
+        $this->activeController = '';
+        $this->activeOperation = '';
     }
 
     private $rootDir;
@@ -32,6 +35,8 @@ class BitMvc
     private $modelDir;
     private $viewDir;
     private $controllerDir;
+    private $activeController;
+    private $activeOperation;
 
     public function run()
     {
@@ -61,6 +66,8 @@ class BitMvc
             $this->HTTP404Operation();
 
         # Run the controller
+        $this->activeController = $class;
+        $this->activeOperation = $method;
         $return = $instance->$method();
 
         # Get the view
@@ -75,6 +82,11 @@ class BitMvc
 
     private function runTemplate($file, $args = null)
     {
+        # Set some template variables
+        $C = $controller = $this->activeController;
+        $O = $operation = $this->activeOperation;
+
+        # Get the view
         ob_start();
         include $file;
         $c = ob_get_contents();

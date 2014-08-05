@@ -1,5 +1,8 @@
 <?php
-
-interface BitController
+abstract class BitController
 {
+    public function redirect($url)
+    {
+        header('Location: '.$url);
+    }
 }
