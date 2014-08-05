@@ -18,29 +18,41 @@ class BitMvc
 
     public function run()
     {
+        # Get controller class and opertaion from url
         $controller = @$_GET['controller'];
         $operation = @$_GET['operation'];
         $controller = $controller ? $controller : @$_GET['c'];
         $operation = $operation ? $operation : @$_GET['o'];
-
         $class = trim(ucwords(strtolower($controller)));
         $method = trim(ucwords(strtolower($operation)));
 
+        # Validate url parse
         if(!$class)
-            die('404 Controller');
+            $this->HTTP404Controller();
         if(!$method)
-          $method = 'index';
+            $method = 'index';
 
-        $instance = new $class();
+        # Get and validate the controller
+        if (class_exists($class, $autoload = true)) {
+            $instance = new $class();
+        } else {
+            $this->HTTP404Controller();
+        }
+        if(!$instance instanceof BitController)
+            $this->HTTP404Controller();
+        if(!method_exists($instance, $method))
+            $this->HTTP404Operation();
+
+        # Run the controller
         $return = $instance->$method();
 
+        # Get the view
         $content = '';
         $template = strtolower($this->viewDir."$class.$method.php");
         if(is_file($template))
         {
             $content = $this->runTemplate($template, $return);
         }
-
         echo $content;
     }
 
@@ -51,6 +63,21 @@ class BitMvc
         $c = ob_get_contents();
         ob_end_clean();
         return $c;
+    }
+
+    private function HTTP404($message = '')
+    {
+        die('404: '.$message);
+    }
+
+    private function HTTP404Controller()
+    {
+        die('404 Controller');
+    }
+
+    private function HTTP404Operation()
+    {
+        die('404 Operation');
     }
 
 }

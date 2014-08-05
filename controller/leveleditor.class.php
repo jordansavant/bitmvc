@@ -1,5 +1,5 @@
 <?php
-class LevelEditor
+class LevelEditor implements BitController
 {
     public function index()
     {
