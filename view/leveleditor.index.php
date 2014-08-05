@@ -6,8 +6,8 @@ foreach($args['files'] as $file)
 ?>
     <li>
         <?=$file?> -
-        <a href="index.php?c=<?=$C?>&o=editlevelpack&name=<?=$file?>">edit</a> -
-        <a href="index.php?c=<?=$C?>&o=viewlevelpacksource&name=<?=$file?>">source</a>
+        <a href="index.php?c=<?=$C?>&o=editlevelpack&lp=<?=$file?>">edit</a> -
+        <a href="index.php?c=<?=$C?>&o=viewlevelpacksource&lp=<?=$file?>">source</a>
     </li>
 <?php
 }

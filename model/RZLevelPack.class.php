@@ -33,27 +33,18 @@ class RZLevelPack
 
     public function toForm()
     {
-        echo 'Name: <input type="text" name="name" value="'.$this->name.'" /><br />';
+        return 'Name: <input type="text" name="name" value="'.$this->name.'" /><br />';
     }
 
-    /**
-     * Validates the state of the current instance
-     */
-    public function validate()
+    public function create()
     {
+        # Valdiate
         if(!$this->name)
         {
             throw new Exception("Name is required.");
         }
-    }
 
-    /**
-     * Should only be run after validate
-     * Creates an empy level pack file
-     * in the data dir with the given name
-     */
-    public function save()
-    {
+        # Create
         $xml = <<<XML
 <levels>
 </levels>

@@ -24,10 +24,8 @@ class LevelEditor extends BitController
             $rzLevelPack->name = @$_POST['name'];
 
             try {
-                $rzLevelPack->validate();
-                $rzLevelPack->save();
-
-                $this->redirect("index.php?c=".__CLASS__."&o=editLevelPack&name=".$rzLevelPack->name);
+                $rzLevelPack->create();
+                $this->redirect("index.php?c=".__CLASS__."&o=editLevelPack&lp=".$rzLevelPack->name);
             } catch(Exception $e) {
                 $error = $e->getMessage();
             }
@@ -38,8 +36,7 @@ class LevelEditor extends BitController
 
     public function editLevelPack()
     {
-        $name = @$_GET['name'];
-        $rzLevelPack = new RZLevelPack($name);
+        $rzLevelPack = new RZLevelPack(@$_GET['lp']);
         $rzLevelPack->load();
 
         return array('rzLevelPack' => $rzLevelPack);
@@ -47,10 +44,18 @@ class LevelEditor extends BitController
 
     public function viewLevelPackSource()
     {
-        $name = @$_GET['name'];
-        $rzLevelPack = new RZLevelPack($name);
+        $rzLevelPack = new RZLevelPack(@$_GET['lp']);
 
         return array('rzLevelPack' => $rzLevelPack);
+    }
+
+    public function createLevel()
+    {
+        $error = '';
+        $rzLevelPack = new RZLevelPack(@$_GET['lp']);
+        $rzLevel = new RZLevel();
+
+        return array('error' => $error, 'rzLevelPack' => $rzLevelPack, 'rzLevel' => $rzLevel);
     }
 }
 
