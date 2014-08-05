@@ -1,0 +1,6 @@
+*.swo
+*.swp
+php.ini
+.htaccess
+.htpasswd
+error_log
