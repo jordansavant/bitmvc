@@ -44,5 +44,13 @@ class LevelEditor extends BitController
 
         return array('rzLevelPack' => $rzLevelPack);
     }
+
+    public function viewLevelPackSource()
+    {
+        $name = @$_GET['name'];
+        $rzLevelPack = new RZLevelPack($name);
+
+        return array('rzLevelPack' => $rzLevelPack);
+    }
 }
 

@@ -11,11 +11,16 @@ class RZLevelPack
     public $name;
     public $rzLevels;
 
-    public function load()
+    public function getXmlSource()
     {
         $file = RZConfig::getDataDirectory().$this->name;
         if(!is_file($file)) throw new Exception("Cant load level pack: ".$file);
-        $xml = file_get_contents($file);
+        return file_get_contents($file);
+    }
+
+    public function load()
+    {
+        $xml = $this->getXmlSource();
 
         $nodes = new SimpleXMLElement($xml);
         foreach($nodes->levels as $level)
