@@ -2,7 +2,7 @@
 
 <?php echo $args['error'] ? $args['error'] ."<br>" : ""; ?>
 
-<form action="index.php?c=<?=$C?>&o=createlevel" method="post">
+<form action="index.php?c=<?=$C?>&o=createlevel&lp=<?=$args['rzLevelPack']->name?>" method="post">
 <?php echo $args['rzLevel']->toForm(); ?>
 <br>
 <input type="submit" value="Create" />

@@ -55,7 +55,26 @@ class LevelEditor extends BitController
         $rzLevelPack = new RZLevelPack(@$_GET['lp']);
         $rzLevel = new RZLevel();
 
+        if(count($_POST))
+        {
+            $rzLevel->bind($_POST['RZLevel']);
+
+            try {
+                $rzLevel->create();
+                $rzLevelPack->rzLevels[] = $rzLevel;
+                $rzLevelPack->save();
+                $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$rzLevelPack->name."&id=".$rzLevel->id);
+            } catch(Exception $e) {
+                $error = $e->getMessage();
+            }
+        }
+
         return array('error' => $error, 'rzLevelPack' => $rzLevelPack, 'rzLevel' => $rzLevel);
+    }
+
+    public function editLevel()
+    {
+        $this->redirect('index.php?c=leveleditor&o=viewlevelpacksource&lp='.$_GET['lp']);
     }
 }
 

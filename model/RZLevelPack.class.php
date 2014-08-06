@@ -8,6 +8,7 @@ class RZLevelPack
         $this->rzLevels = array();
     }
 
+    const NODE_NAME = 'levels';
     public $name;
     public $rzLevels;
 
@@ -23,11 +24,14 @@ class RZLevelPack
         $xml = $this->getXmlSource();
 
         $nodes = new SimpleXMLElement($xml);
-        foreach($nodes->levels as $level)
+        foreach($nodes->levels as $levels)
         {
-            $rzLevel = new RZLevel();
-            $rzLevel->fromXmlNode($level);
-            $this->rzLevels[$rzLevel->id] = $rzLevel;
+            foreach($levels as $level)
+            {
+                $rzLevel = new RZLevel();
+                $rzLevel->fromXmlNode($level);
+                $this->rzLevels[] = $rzLevel;
+            }
         }
     }
 
@@ -46,11 +50,25 @@ class RZLevelPack
 
         # Create
         $xml = <<<XML
+<levelpack>
 <levels>
 </levels>
+</levelpack>
 XML;
         $levels = new SimpleXMLElement($xml);
         $file = RZConfig::getDataDirectory().$this->name;
         $levels->asXML($file);
+    }
+
+    public function save()
+    {
+        $root = new SimpleXMLElement('<levelpack><levels></levels></levelpack>');
+        foreach($this->rzLevels as $rzLevel)
+        {
+            $levelNode = $root->levels->addChild(RZLevel::NODE_NAME);
+            $levelNode = $rzLevel->fillNode($levelNode);
+        }
+        $file = RZConfig::getDataDirectory().$this->name;
+        $root->asXML($file);
     }
 }

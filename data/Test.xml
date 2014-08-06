@@ -1,3 +1,2 @@
 <?xml version="1.0"?>
-<levels>
-</levels>
+<levelpack><levels><level><id>1</id><title>Test One</title></level></levels></levelpack>
