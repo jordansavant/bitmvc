@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <levelpack>
+  <version>1</version>
   <name>sss</name>
   <levels>
     <level>
@@ -29,6 +30,10 @@
     <level>
       <id>adawdadw</id>
       <title>1231wdawada</title>
+    </level>
+    <level>
+      <id>adawdadw</id>
+      <title>1231wdawadasss</title>
     </level>
     <level>
       <id>adawdadw</id>

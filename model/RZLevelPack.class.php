@@ -5,6 +5,7 @@ class RZLevelPack extends RZBase
     public function __construct($name = '')
     {
         $this->name = $name;
+        $this->version = RZConfig::getVersion();
         $this->levels = array();
 
         if($this->name)
@@ -13,6 +14,7 @@ class RZLevelPack extends RZBase
         }
     }
 
+    public $version;
     public $name;
     public $levels;
 
