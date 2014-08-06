@@ -5,7 +5,7 @@ class RZLevelPack extends RZBase
     public function __construct($name = '')
     {
         $this->name = $name;
-        $this->rzLevels = array();
+        $this->levels = array();
 
         if($this->name)
         {
@@ -14,7 +14,7 @@ class RZLevelPack extends RZBase
     }
 
     public $name;
-    public $rzLevels;
+    public $levels;
 
     public function getNodeName()
     {
@@ -25,7 +25,12 @@ class RZLevelPack extends RZBase
     {
         $file = RZConfig::getDataDirectory().$this->name;
         if(!is_file($file)) throw new Exception("Cant load level pack: ".$file);
-        return file_get_contents($file);
+        $xml = file_get_contents($file);
+        $simple_xml = new SimpleXMLElement($xml);
+        $dom = dom_import_simplexml($simple_xml)->ownerDocument;
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        return $dom->saveXML();
     }
 
     public function load()
@@ -33,13 +38,13 @@ class RZLevelPack extends RZBase
         $xml = $this->getXmlSource();
 
         $nodes = new SimpleXMLElement($xml);
-        foreach($nodes->rzLevels as $levels)
+        foreach($nodes->levels as $levels)
         {
             foreach($levels as $level)
             {
                 $rzLevel = new RZLevel();
                 $rzLevel->fromXmlNode($level);
-                $this->rzLevels[] = $rzLevel;
+                $this->levels[] = $rzLevel;
             }
         }
         #echo "<pre>".htmlentities(print_r($this, 1))."</pre>";
@@ -62,6 +67,10 @@ class RZLevelPack extends RZBase
         $root = new SimpleXMLElement('<levelpack></levelpack>');
         $this->fillNode($root);
         $file = RZConfig::getDataDirectory().$this->name;
-        $root->asXML($file);
+        # $root->asXML($file);
+        $dom = dom_import_simplexml($root)->ownerDocument;
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        file_put_contents($file, $dom->saveXML());
     }
 }

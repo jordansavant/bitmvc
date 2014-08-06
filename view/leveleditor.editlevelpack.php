@@ -4,7 +4,7 @@ $lp = $args['rzLevelPack']->name;
 <h1>Edit Level Pack: <?=$lp?></h1>
 <ul>
 <?php
-foreach($args['rzLevelPack']->rzLevels as $rzLevel)
+foreach($args['rzLevelPack']->levels as $rzLevel)
 {
 ?>
     <li><?=$rzLevel->title?> - <a href="index.php?c=<?=$C?>&o=editlevel&lp=<?=$lp?>&levelid=<?=$rzLevel->id?>">edit</a></li>

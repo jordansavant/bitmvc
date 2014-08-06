@@ -25,7 +25,6 @@ abstract class RZBase
     {
         foreach($this as $key => $value)
         {
-            var_dump($value);
             self::populateNode($key, $value, $node);
         }
     }
