@@ -1,16 +1,25 @@
 <?php
 
-class RZLevelPack
+class RZLevelPack extends RZBase
 {
     public function __construct($name = '')
     {
         $this->name = $name;
         $this->rzLevels = array();
+
+        if($this->name)
+        {
+            $this->load();
+        }
     }
 
-    const NODE_NAME = 'levels';
     public $name;
     public $rzLevels;
+
+    public function getNodeName()
+    {
+        return 'levels';
+    }
 
     public function getXmlSource()
     {
@@ -24,7 +33,7 @@ class RZLevelPack
         $xml = $this->getXmlSource();
 
         $nodes = new SimpleXMLElement($xml);
-        foreach($nodes->levels as $levels)
+        foreach($nodes->rzLevels as $levels)
         {
             foreach($levels as $level)
             {
@@ -33,11 +42,7 @@ class RZLevelPack
                 $this->rzLevels[] = $rzLevel;
             }
         }
-    }
-
-    public function toForm()
-    {
-        return 'Name: <input type="text" name="name" value="'.$this->name.'" /><br />';
+        #echo "<pre>".htmlentities(print_r($this, 1))."</pre>";
     }
 
     public function create()
@@ -49,25 +54,13 @@ class RZLevelPack
         }
 
         # Create
-        $xml = <<<XML
-<levelpack>
-<levels>
-</levels>
-</levelpack>
-XML;
-        $levels = new SimpleXMLElement($xml);
-        $file = RZConfig::getDataDirectory().$this->name;
-        $levels->asXML($file);
+        $this->save();
     }
 
     public function save()
     {
-        $root = new SimpleXMLElement('<levelpack><levels></levels></levelpack>');
-        foreach($this->rzLevels as $rzLevel)
-        {
-            $levelNode = $root->levels->addChild(RZLevel::NODE_NAME);
-            $levelNode = $rzLevel->fillNode($levelNode);
-        }
+        $root = new SimpleXMLElement('<levelpack></levelpack>');
+        $this->fillNode($root);
         $file = RZConfig::getDataDirectory().$this->name;
         $root->asXML($file);
     }

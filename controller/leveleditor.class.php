@@ -21,7 +21,7 @@ class LevelEditor extends BitController
 
         if(count($_POST))
         {
-            $rzLevelPack->name = @$_POST['name'];
+            $rzLevelPack->bind($_POST['RZLevelPack']);
 
             try {
                 $rzLevelPack->create();
@@ -37,7 +37,6 @@ class LevelEditor extends BitController
     public function editLevelPack()
     {
         $rzLevelPack = new RZLevelPack(@$_GET['lp']);
-        $rzLevelPack->load();
 
         return array('rzLevelPack' => $rzLevelPack);
     }
