@@ -1,4 +1,6 @@
+##start-header##
 <h1>Index</h1>
+##end##
 <ul>
 <?php
 foreach($this->files as $file)

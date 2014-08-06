@@ -30,13 +30,13 @@ class BitMvc
         $this->activeOperation = '';
     }
 
-    private $rootDir;
-    private $libDir;
-    private $modelDir;
-    private $viewDir;
-    private $controllerDir;
-    private $activeController;
-    private $activeOperation;
+    public $rootDir;
+    public $libDir;
+    public $modelDir;
+    public $viewDir;
+    public $controllerDir;
+    public $activeController;
+    public $activeOperation;
 
     public function run()
     {
@@ -71,17 +71,22 @@ class BitMvc
         $return = $instance->$method();
 
         # Get the view
-        $content = '';
-        $template = strtolower($this->viewDir."$class.$method.php");
-        if(is_file($template))
+        if($return)
         {
-            $content = $instance->processView($template, $return, $class, $method);
+            # Action can return content directly
+            echo $return;
         }
-        echo $content;
-    }
-
-    private function runTemplate($file, $args = null)
-    {
+        else
+        {
+            # Process view
+            $content = '';
+            $template = strtolower($this->viewDir."$class.$method.php");
+            if(is_file($template))
+            {
+                $content = $instance->processView($this, $template, $class, $method);
+            }
+            echo $content;
+        }
     }
 
     private function HTTP404($message = '')

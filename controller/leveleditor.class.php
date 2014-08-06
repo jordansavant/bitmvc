@@ -1,10 +1,11 @@
 <?php
 class LevelEditor extends BitController
 {
-    /**
-     * List all levels that it can find
-     * in the levels folder
-     */
+    public function __construct()
+    {
+        $this->bitTemplate = 'primary';
+    }
+
     public function index()
     {
         $dir = dirname(__FILE__)."/";
