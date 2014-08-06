@@ -21,7 +21,14 @@ abstract class BitController
             $template = strtolower($bitmvc->viewDir . 'template/' . get_called_class() . '.' . $this->bitTemplate . '.php');
             if(is_file($template))
             {
-                $final = file_get_contents($template);
+                $final = function($C, $O, $template) {
+                    ob_start();
+                    include $template;
+                    $r = ob_get_contents();
+                    ob_end_clean();
+                    return $r;
+                };
+                $final = $final($C, $O, $template);
 
                 if(preg_match_all('/##start-(?P<slot>[\a-zA-Z0-9]+)##(?P<content>.*?)##end##/is', $view, $matches))
                 {
@@ -36,6 +43,7 @@ abstract class BitController
                 }
 
                 $final = str_replace('##content##', trim($view), $final);
+                $final = preg_replace('/##[\w]+##/', '', $final);
             }
         }
         else
