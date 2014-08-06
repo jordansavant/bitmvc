@@ -1,7 +1,7 @@
 <h1>Index</h1>
 <ul>
 <?php
-foreach($args['files'] as $file)
+foreach($this->files as $file)
 {
 ?>
     <li>

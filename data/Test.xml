@@ -1,2 +1,15 @@
 <?xml version="1.0"?>
-<levelpack><levels><level><id>1</id><title>Test One</title></level></levels></levelpack>
+<levelpack>
+  <version>1</version>
+  <name>Test.xml</name>
+  <levels>
+    <level>
+      <id>1</id>
+      <title>Test One</title>
+    </level>
+    <level>
+      <id>foo</id>
+      <title>bar</title>
+    </level>
+  </levels>
+</levelpack>

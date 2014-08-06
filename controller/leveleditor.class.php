@@ -9,66 +9,56 @@ class LevelEditor extends BitController
     {
         $dir = dirname(__FILE__)."/";
         $scan = scandir("$dir../data/");
-        $files = array_diff($scan, array(".", ".."));
-
-        return array("files" => $files);
+        $this->files = array_diff($scan, array(".", ".."));
     }
 
     public function createLevelPack()
     {
-        $error = '';
-        $rzLevelPack = new RZLevelPack();
+        $this->error = '';
+        $this->rzLevelPack = new RZLevelPack();
 
         if(count($_POST))
         {
-            $rzLevelPack->bind($_POST['RZLevelPack']);
+            $this->rzLevelPack->bind($_POST['RZLevelPack']);
 
             try {
-                $rzLevelPack->create();
-                $this->redirect("index.php?c=".__CLASS__."&o=editLevelPack&lp=".$rzLevelPack->name);
+                $this->rzLevelPack->create();
+                $this->redirect("index.php?c=".__CLASS__."&o=editLevelPack&lp=".$this->rzLevelPack->name);
             } catch(Exception $e) {
-                $error = $e->getMessage();
+                $this->error = $e->getMessage();
             }
         }
-
-        return array('error' => $error, 'rzLevelPack' => $rzLevelPack);
     }
 
     public function editLevelPack()
     {
-        $rzLevelPack = new RZLevelPack(@$_GET['lp']);
-
-        return array('rzLevelPack' => $rzLevelPack);
+        $this->rzLevelPack = new RZLevelPack(@$_GET['lp']);
     }
 
     public function viewLevelPackSource()
     {
-        $rzLevelPack = new RZLevelPack(@$_GET['lp']);
-
-        return array('rzLevelPack' => $rzLevelPack);
+        $this->rzLevelPack = new RZLevelPack(@$_GET['lp']);
     }
 
     public function createLevel()
     {
-        $error = '';
-        $rzLevelPack = new RZLevelPack(@$_GET['lp']);
-        $rzLevel = new RZLevel();
+        $this->error = '';
+        $this->rzLevelPack = new RZLevelPack(@$_GET['lp']);
+        $this->rzLevel = new RZLevel();
 
         if(count($_POST))
         {
-            $rzLevel->bind($_POST['RZLevel']);
+            $this->rzLevel->bind($_POST['RZLevel']);
 
             try {
-                $rzLevel->create();
-                $rzLevelPack->levels[] = $rzLevel;
-                $rzLevelPack->save();
-                $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$rzLevelPack->name."&id=".$rzLevel->id);
+                $this->rzLevel->create();
+                $this->rzLevelPack->levels[] = $this->rzLevel;
+                $this->rzLevelPack->save();
+                $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&id=".$this->rzLevel->id);
             } catch(Exception $e) {
-                $error = $e->getMessage();
+                $this->error = $e->getMessage();
             }
         }
-
-        return array('error' => $error, 'rzLevelPack' => $rzLevelPack, 'rzLevel' => $rzLevel);
     }
 
     public function editLevel()

@@ -75,23 +75,13 @@ class BitMvc
         $template = strtolower($this->viewDir."$class.$method.php");
         if(is_file($template))
         {
-            $content = $this->runTemplate($template, $return);
+            $content = $instance->processView($template, $return, $class, $method);
         }
         echo $content;
     }
 
     private function runTemplate($file, $args = null)
     {
-        # Set some template variables
-        $C = $controller = $this->activeController;
-        $O = $operation = $this->activeOperation;
-
-        # Get the view
-        ob_start();
-        include $file;
-        $c = ob_get_contents();
-        ob_end_clean();
-        return $c;
     }
 
     private function HTTP404($message = '')

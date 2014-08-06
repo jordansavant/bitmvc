@@ -1,5 +1,5 @@
 <pre>
 <?php
-echo htmlentities($args['rzLevelPack']->getXmlSource());
+echo htmlentities($this->rzLevelPack->getXmlSource());
 ?>
 </pre>
