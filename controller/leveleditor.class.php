@@ -52,7 +52,8 @@ class LevelEditor extends BitController
             $this->rzLevel->bind($_POST['RZLevel']);
 
             try {
-                $this->rzLevel->create();
+                $newId = count($this->rzLevelPack->levels);
+                $this->rzLevel->create($newId);
                 $this->rzLevelPack->levels[] = $this->rzLevel;
                 $this->rzLevelPack->save();
                 $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&id=".$this->rzLevel->id);

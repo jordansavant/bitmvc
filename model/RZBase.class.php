@@ -59,6 +59,9 @@ abstract class RZBase
         $s = '';
         foreach($this as $key => $value)
         {
+            if(!$this->canForm($key))
+                continue;
+
             if($value instanceof RZBase)
             {
                 # recursion not tested
@@ -70,6 +73,11 @@ abstract class RZBase
             }
         }
         return $s;
+    }
+
+    public function canForm($field)
+    {
+        return true;
     }
 
     public function validateUnsignedInt($value)

@@ -8,18 +8,117 @@
       <title>Test One</title>
       <rows></rows>
       <columns></columns>
+      <tileMap></tileMap>
+      <structureMap></structureMap>
+      <characterMap></characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
     </level>
     <level>
       <id>foo</id>
       <title>bar</title>
       <rows></rows>
       <columns></columns>
+      <tileMap></tileMap>
+      <structureMap></structureMap>
+      <characterMap></characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
     </level>
     <level>
       <id>7</id>
       <title>7th Level</title>
       <rows>30</rows>
       <columns>30</columns>
+      <tileMap></tileMap>
+      <structureMap></structureMap>
+      <characterMap></characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
+    </level>
+    <level>
+      <id>id</id>
+      <title>ttt</title>
+      <rows>12</rows>
+      <columns>12</columns>
+      <tileMap></tileMap>
+      <structureMap></structureMap>
+      <characterMap></characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
+    </level>
+    <level>
+      <id>id</id>
+      <title>ttt</title>
+      <rows>12</rows>
+      <columns>12</columns>
+      <tileMap></tileMap>
+      <structureMap></structureMap>
+      <characterMap></characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
+    </level>
+    <level>
+      <id>id</id>
+      <title>ttt</title>
+      <rows>12</rows>
+      <columns>12</columns>
+      <tileMap>0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</tileMap>
+      <structureMap>0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</structureMap>
+      <characterMap>0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
+    </level>
+    <level>
+      <id>id</id>
+      <title>ttt</title>
+      <rows>12</rows>
+      <columns>12</columns>
+      <tileMap>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,</tileMap>
+      <structureMap>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,</structureMap>
+      <characterMap>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,</characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
+    </level>
+    <level>
+      <id>7</id>
+      <title>test</title>
+      <rows>3</rows>
+      <columns>3</columns>
+      <tileMap>0,0,0,0,0,0,0,0,</tileMap>
+      <structureMap>0,0,0,0,0,0,0,0,</structureMap>
+      <characterMap>0,0,0,0,0,0,0,0,</characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
+    </level>
+    <level>
+      <id>8</id>
+      <title>test</title>
+      <rows>3</rows>
+      <columns>3</columns>
+      <tileMap>0,0,0,0,0,0,0,0,0</tileMap>
+      <structureMap>0,0,0,0,0,0,0,0,0</structureMap>
+      <characterMap>0,0,0,0,0,0,0,0,0</characterMap>
+      <tiles></tiles>
+      <structures></structures>
+      <characters></characters>
+      <lights></lights>
     </level>
   </levels>
 </levelpack>

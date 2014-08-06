@@ -33,7 +33,7 @@ li {
 }
 label.formLabel
 {
-    min-width: 100px;
+    min-width: 110px;
     display: inline-block;
     border-bottom: 1px solid;
 }
