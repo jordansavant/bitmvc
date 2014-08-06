@@ -6,10 +6,20 @@
     <level>
       <id>1</id>
       <title>Test One</title>
+      <rows></rows>
+      <columns></columns>
     </level>
     <level>
       <id>foo</id>
       <title>bar</title>
+      <rows></rows>
+      <columns></columns>
+    </level>
+    <level>
+      <id>7</id>
+      <title>7th Level</title>
+      <rows>30</rows>
+      <columns>30</columns>
     </level>
   </levels>
 </levelpack>

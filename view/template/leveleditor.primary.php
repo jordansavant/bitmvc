@@ -31,6 +31,13 @@ li {
     margin-bottom: 10px;
     list-style-type: square;
 }
+label.formLabel
+{
+    min-width: 100px;
+    display: inline-block;
+    border-bottom: 1px solid;
+}
+
 </style>
 </head>
 <body>

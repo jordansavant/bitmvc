@@ -66,11 +66,15 @@ abstract class RZBase
             }
             elseif(!is_array($value) && !is_object($value))
             {
-                $s .= (string)$value;
-                $s .= $key.': <input type="text" name="'.get_called_class().'['.$key.']" value="'.$value.'" /><br />';
+                $s .= '<label class="formLabel">'.$key.':</label> <input type="text" name="'.get_called_class().'['.$key.']" value="'.$value.'" /><br />';
             }
         }
         return $s;
+    }
+
+    public function validateUnsignedInt($value)
+    {
+        return is_numeric($value) && (int)$value == $value && $value > 0;
     }
 
 }
