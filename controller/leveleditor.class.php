@@ -102,6 +102,7 @@ class LevelEditor extends BitController
         $this->lp = $_GET['lp'];
         $this->lid = $_GET['lid'];
         $this->tid = $_GET['tid'];
+        $this->error = '';
         $this->rzLevelPack = new RZLevelPack($this->lp);
         $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
         $this->rzTile = $this->rzLevel->getTileById($this->tid);

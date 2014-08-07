@@ -1,3 +1,7 @@
+##start-breadcrumb##
+ &gt; <a href="index.php?c=<?=$C?>&o=editLevelPack&lp=<?=$this->lp?>">Level Pack</a>
+##end##
+
 <h1>Edit Level: <?=$this->rzLevel->title?></h1>
 
 <table class="map">

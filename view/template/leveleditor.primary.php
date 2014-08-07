@@ -68,6 +68,7 @@ table.map td.tile
 
 <div>
 <a href="index.php?c=<?=$C?>&o=index">Index</a>
+##breadcrumb##
 </div>
 <hr />
 ##header##
