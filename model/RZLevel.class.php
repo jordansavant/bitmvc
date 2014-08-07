@@ -2,6 +2,11 @@
 
 class RZLevel extends RZBase
 {
+    public function __construct()
+    {
+        $this->tiles = $this->structures = $this->characters = $this->lights = array();
+    }
+
     # properties
     public $id;
     public $title;
@@ -22,9 +27,43 @@ class RZLevel extends RZBase
         return 'level';
     }
 
+    public function fromXmlNode($node)
+    {
+        $this->id = (string)$node->id;
+        $this->title = (string)$node->title;
+        $this->rows = (string)$node->rows;
+        $this->columns = (string)$node->columns;
+        $this->tileMap = (string)$node->tileMap;
+        $this->structureMap = (string)$node->structureMap;
+        $this->characterMape = (string)$node->characterMap;
+
+        foreach($node->tiles as $tiles)
+        {
+            foreach($tiles as $tile)
+            {
+                $rzTile = new RZTile();
+                $rzTile->fromXmlNode($tile);
+                $this->tiles[] = $rzTile;
+            }
+        }
+    }
+
     public function canForm($field)
     {
         return in_array($field, array('title', 'rows', 'columns'));
+    }
+
+    public function getTileById($id)
+    {
+        if(is_array($this->tiles))
+        {
+            foreach($this->tiles as $rzTile)
+            {
+                if($rzTile->id == $id)
+                    return $rzTile;
+            }
+        }
+        return null;
     }
 
     public function create($id)
@@ -46,11 +85,39 @@ class RZLevel extends RZBase
         $this->tileMap = $this->buildEmptyMap($this->rows, $this->columns);
         $this->structureMap = $this->buildEmptyMap($this->rows, $this->columns);
         $this->characterMap = $this->buildEmptyMap($this->rows, $this->columns);
+
+        # prepopulate tiles
+        for($i=0; $i < $this->rows; $i++)
+        {
+            for($j=0; $j < $this->columns; $j++)
+            {
+                $index = $i * $this->rows + $j;
+                $rzTile = new RZTile();
+                $rzTile->type = RZConfig::getDefaultTileType();
+                $rzTile->id = $index + 1;
+                $this->addTileAtIndex($rzTile, $index);
+            }
+        }
     }
 
     private function buildEmptyMap($rows, $columns)
     {
         $s = str_repeat('0,', $rows * $columns);
         return substr($s, 0, -1);
+    }
+
+    public function addTileAtIndex($rzTile, $index)
+    {
+        # Set the tile
+        if(!is_array($this->tiles))
+        {
+            $this->tiles = array();
+        }
+        $this->tiles[] = $rzTile;
+
+        # Write its id to the position map
+        $tilemap = explode(',', $this->tileMap);
+        $tilemap[$index] = $rzTile->id;
+        $this->tileMap = implode(',', $tilemap);
     }
 }

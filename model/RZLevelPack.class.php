@@ -23,6 +23,11 @@ class RZLevelPack extends RZBase
         return 'levels';
     }
 
+    public function getLevelById($id)
+    {
+        return $this->levels[$id - 1];
+    }
+
     public function getXmlSource()
     {
         $file = RZConfig::getDataDirectory().$this->name;

@@ -37,7 +37,31 @@ label.formLabel
     display: inline-block;
     border-bottom: 1px solid;
 }
-
+table.map
+{
+    border: 0px;
+    border-spacing: 7px;
+}
+table.map td
+{
+    padding: 0px;
+    border: 0px;
+    width: 25px;
+    height: 25px;
+}
+table.map .cell
+{
+    cursor: pointer;
+}
+table.map td.notile
+{
+    border-radius: 50px;
+    background: #000;
+}
+table.map td.tile
+{
+    background: #000;
+}
 </style>
 </head>
 <body>

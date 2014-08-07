@@ -7,7 +7,7 @@ $lp = $this->rzLevelPack->name;
 foreach($this->rzLevelPack->levels as $rzLevel)
 {
 ?>
-    <li><?=$rzLevel->title?> - <a href="index.php?c=<?=$C?>&o=editlevel&lp=<?=$lp?>&levelid=<?=$rzLevel->id?>">edit</a></li>
+    <li><?=$rzLevel->title?> - <a href="index.php?c=<?=$C?>&o=editlevel&lp=<?=$lp?>&lid=<?=$rzLevel->id?>">edit</a></li>
 <?php
 }
 ?>

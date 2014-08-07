@@ -10,4 +10,9 @@ class RZConfig
     {
         return dirname(__FILE__)."/../data/";
     }
+
+    public static function getDefaultTileType()
+    {
+        return 1;
+    }
 }
