@@ -119,7 +119,32 @@ class LevelEditor extends BitController
                 $this->error = $e->getMessage();
             }
         }
+    }
 
+    public function createStructure()
+    {
+        $this->error = '';
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->index = $_GET['index'];
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzStructure = new RZStructure();
+
+        if(count($_POST))
+        {
+            $this->rzStructure->bind($_POST['RZStructure']);
+
+            try {
+                $newId = count($this->rzLevel->structures) + 1;
+                $this->rzStructure->create($newId);
+                $this->rzLevel->addStructureAtIndex($this->rzStructure, $this->index);
+                $this->rzLevelPack->save();
+                $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
+            } catch(Exception $e) {
+                $this->error = $e->getMessage();
+            }
+        }
     }
 
 }

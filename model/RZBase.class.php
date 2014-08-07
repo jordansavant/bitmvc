@@ -85,4 +85,9 @@ abstract class RZBase
         return is_numeric($value) && (int)$value == $value && $value > 0;
     }
 
+    public function validateBool($value)
+    {
+        return (string)$value == '1' || (string)$value == '0';
+    }
+
 }

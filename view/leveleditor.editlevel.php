@@ -6,7 +6,6 @@
 
 <table class="map">
 <?php
-$tileMap = explode(',', $this->rzLevel->tileMap);
 for($i=0; $i < $this->rzLevel->rows; $i++)
 {
     ?>
@@ -15,22 +14,47 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
     for($j=0; $j < $this->rzLevel->columns; $j++)
     {
         $index = $i * $this->rzLevel->columns + $j;
-        $tileId = $tileMap[$index];
-        $rzTile = $this->rzLevel->getTileById($tileId);
-        if(!$rzTile)
-        {
-            $href = "index.php?c=$C&o=createTile&lp=$this->lp&lid=$this->lid&index=$index";
-            ?>
-            <td class="cell notile" onclick="window.location.href = '<?= $href ?>'"></td>
+        $rzTile = $this->rzLevel->getTileByIndex($index);
+        $rzStructure = $this->rzLevel->getStructureByIndex($index);
+        $href = "index.php?c=$C&o=editTile&lp=$this->lp&lid=$this->lid&tid=$rzTile->id";
+        ?>
+        <td class="cell tile type<?=$rzTile->type?>" id="tile<?=$rzTile->id?>">
+            <div style="display: none" id="tile<?=$rzTile->id?>details">
             <?php
-        }
-        else
-        {
-            $href = "index.php?c=$C&o=editTile&lp=$this->lp&lid=$this->lid&tid=$rzTile->id";
+            echo "Tile: $rzTile->id, type = $rzTile->type  <a href=\"index.php?c=$C&o=editTile&lp=$this->lp&lid=$this->lid&tid=$rzTile->id\">Edit</a>";
+            if($rzStructure)
+            {
+                echo "<br>Structure: $rzStructure->id, type = $rzStructure->type  <a href=\"index.php?c=$C&o=editStructure&lp=$this->lp&lid=$this->lid&sid=$rzStructure->id\">Edit</a>";
+            }
+            else
+            {
+                echo "<br>Structure: <a href=\"index.php?c=$C&o=createStructure&lp=$this->lp&lid=$this->lid&index=$index\">Create</a>";
+            }
             ?>
-            <td class="cell tile type<?=$rzTile->type?>" id="tile<?=$rzTile->id?>" onclick="window.location.href = '<?= $href ?>'"></td>
+            </div>
             <?php
-        }
+            if($rzStructure)
+            {
+                ?>
+                <div class="structure structure<?=$rzStructure->type?>"></div>
+                <?php
+            }
+            ?>
+        </td>
+        <script>
+        $('#tile<?=$rzTile->id?>').qtip({
+            content: {
+                text: $('#tile<?=$rzTile->id?>details'),
+                title: '<?="$index: $i,$j"?>',
+            },
+            hide: {
+                fixed: true,
+                delay:300
+            },
+            style: 'qtip-dark'
+        });
+        </script>
+        <?php
     }
     ?>
     </tr>

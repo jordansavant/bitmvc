@@ -46,11 +46,29 @@ class RZLevel extends RZBase
                 $this->tiles[] = $rzTile;
             }
         }
+
+        foreach($node->structures as $structures)
+        {
+            foreach($structures as $structure)
+            {
+                $rzStructure = new RZStructure();
+                $rzStructure->fromXmlNode($structure);
+                $this->structures[] = $rzStructure;
+            }
+        }
     }
 
     public function canForm($field)
     {
         return in_array($field, array('title', 'rows', 'columns'));
+    }
+
+    public function getTileByIndex($index)
+    {
+        $tileMap = explode(',', $this->tileMap);
+        $tileId = $tileMap[$index];
+
+        return $this->getTileById($tileId);
     }
 
     public function getTileById($id)
@@ -61,6 +79,27 @@ class RZLevel extends RZBase
             {
                 if($rzTile->id == $id)
                     return $rzTile;
+            }
+        }
+        return null;
+    }
+
+    public function getStructureByIndex($index)
+    {
+        $structureMap = explode(',', $this->structureMap);
+        $structureId = $structureMap[$index];
+
+        return $this->getStructureById($structureId);
+    }
+
+    public function getStructureById($id)
+    {
+        if(is_array($this->structures))
+        {
+            foreach($this->structures as $rzStructure)
+            {
+                if($rzStructure->id == $id)
+                    return $rzStructure;
             }
         }
         return null;
@@ -119,5 +158,20 @@ class RZLevel extends RZBase
         $tilemap = explode(',', $this->tileMap);
         $tilemap[$index] = $rzTile->id;
         $this->tileMap = implode(',', $tilemap);
+    }
+
+    public function addStructureAtIndex($rzStructure, $index)
+    {
+        # Set the structure
+        if(!is_array($this->structures))
+        {
+            $this->structures = array();
+        }
+        $this->structures[] = $rzStructure;
+
+        # Write its id to the position map
+        $structuremap = explode(',', $this->structureMap);
+        $structuremap[$index] = $rzStructure->id;
+        $this->structureMap = implode(',', $structuremap);
     }
 }
