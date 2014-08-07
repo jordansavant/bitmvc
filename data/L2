@@ -99,11 +99,11 @@
       <structures>
         <structure>
           <id>1</id>
-          <type>11</type>
-          <isOpen>1</isOpen>
-          <isLocked>1</isLocked>
-          <items/>
-          <lights/>
+          <type>2</type>
+          <isOpen>0</isOpen>
+          <isLocked>0</isLocked>
+          <items></items>
+          <lights></lights>
         </structure>
       </structures>
       <characters/>
