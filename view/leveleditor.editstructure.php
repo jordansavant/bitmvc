@@ -12,6 +12,6 @@
     <?php echo $this->loadRecurrence("leveleditor.itemtool", array('items' => $this->rzStructure->items)); ?>
     <br>
     <br>
-    <input type="submit" value="Save Structure" />
+    <input type="submit" value="Save Structure" /> <input type="button" value="Delete Structure" onclick="window.location.href = 'index.php?c=<?=$C?>&o=deleteStructure&lp=<?=$this->lp?>&lid=<?=$this->lid?>&sid=<?=$this->sid?>'" />
 </form>
 

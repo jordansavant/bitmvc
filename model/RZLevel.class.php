@@ -35,7 +35,7 @@ class RZLevel extends RZBase
         $this->columns = (string)$node->columns;
         $this->tileMap = (string)$node->tileMap;
         $this->structureMap = (string)$node->structureMap;
-        $this->characterMape = (string)$node->characterMap;
+        $this->characterMap = (string)$node->characterMap;
 
         foreach($node->tiles as $tiles)
         {
@@ -105,6 +105,23 @@ class RZLevel extends RZBase
         return null;
     }
 
+    public function deleteStructureById($id)
+    {
+        if(is_array($this->structures))
+        {
+            $i=0;
+            foreach($this->structures as $rzStructure)
+            {
+                if($rzStructure->id == $id)
+                {
+                    $this->structureMap = $this->setIdAtIndex($this->structureMap, $i, '0');
+                    unset($this->structures[$i]);
+                }
+                $i++;
+            }
+        }
+    }
+
     public function create($id)
     {
         # Validate
@@ -143,6 +160,19 @@ class RZLevel extends RZBase
     {
         $s = str_repeat('0,', $rows * $columns);
         return substr($s, 0, -1);
+    }
+
+    private function getIdAtIndex($map, $index)
+    {
+        $map = explode(',', $this->map);
+        return $map[$index];
+    }
+
+    private function setIdAtIndex($map, $index, $id)
+    {
+        $map = explode(',', $map);
+        $map[$index] = $id;
+        return implode(',', $map);
     }
 
     public function addTileAtIndex($rzTile, $index)

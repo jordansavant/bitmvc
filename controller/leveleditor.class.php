@@ -138,6 +138,8 @@ class LevelEditor extends BitController
 
             try {
                 $newId = count($this->rzLevel->structures) + 1;
+                if($this->rzLevel->getStructureById($newId))
+                    throw new Exception("Structure exists with this id");
                 $this->rzStructure->create($newId);
                 $this->rzLevel->addStructureAtIndex($this->rzStructure, $this->index);
                 $this->rzLevelPack->save();
@@ -171,6 +173,7 @@ class LevelEditor extends BitController
                         $rzItem = new RZItem();
                         $rzItem->type = $itemType;
                         $rzItem->slot = $_POST['itemtool']['item_slots'][$i];
+                        $rzItem->position = $_POST['itemtool']['item_poss'][$i];
                         $rzItem->create($newId);
                         $this->rzStructure->items[] = $rzItem;
                     }
@@ -181,6 +184,19 @@ class LevelEditor extends BitController
                 $this->error = $e->getMessage();
             }
         }
+    }
+
+    public function deleteStructure()
+    {
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->sid = $_GET['sid'];
+        $this->error = '';
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzLevel->deleteStructureById($this->sid);
+        $this->rzLevelPack->save();
+        $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
     }
 
 }
