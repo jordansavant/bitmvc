@@ -56,7 +56,7 @@ class BitMvc
 
         # Get and validate the controller
         if (class_exists($class, $autoload = true)) {
-            $instance = new $class();
+            $instance = new $class($this);
         } else {
             $this->HTTP404Controller();
         }

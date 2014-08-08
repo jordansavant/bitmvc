@@ -1,6 +1,13 @@
 <?php
 abstract class BitController
 {
+    public function __construct($bitmvc)
+    {
+        $this->bitmvc = $bitmvc;
+    }
+
+    public $bitmvc;
+
     public function redirect($url)
     {
         header('Location: '.$url);
@@ -49,6 +56,25 @@ abstract class BitController
         else
         {
             $final = $view;
+        }
+
+        return $final;
+    }
+
+    public function loadRecurrence($name, $args)
+    {
+        $final = '';
+        $file = strtolower($this->bitmvc->viewDir . 'recurrence/'.$name.'.php');
+        if(is_file($file))
+        {
+            $final = function($file, $args) {
+                ob_start();
+                include $file;
+                $r = ob_get_contents();
+                ob_end_clean();
+                return $r;
+            };
+            $final = $final($file, $args);
         }
 
         return $final;

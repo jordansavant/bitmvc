@@ -117,14 +117,14 @@
             </item>
             <item>
               <id>3</id>
-              <type>2</type>
-              <slot>3</slot>
+              <type>1</type>
+              <slot>0</slot>
               <position>0</position>
             </item>
             <item>
               <id>4</id>
               <type>1</type>
-              <slot>0</slot>
+              <slot>4</slot>
               <position>0</position>
             </item>
           </items>

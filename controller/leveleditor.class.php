@@ -1,8 +1,9 @@
 <?php
 class LevelEditor extends BitController
 {
-    public function __construct()
+    public function __construct($bitmvc)
     {
+        parent::__construct($bitmvc);
         $this->bitTemplate = 'primary';
     }
 
@@ -162,14 +163,14 @@ class LevelEditor extends BitController
             try {
                 $this->rzStructure->bind($_POST['RZStructure']);
                 $this->rzStructure->items = array(); #unset
-                if(is_array($_POST['RZStructure']['items']))
+                if(is_array($_POST['itemtool']['items']))
                 {
-                    foreach($_POST['RZStructure']['items'] as $i => $itemType)
+                    foreach($_POST['itemtool']['items'] as $i => $itemType)
                     {
                         $newId = count($this->rzStructure->items) + 1;
                         $rzItem = new RZItem();
                         $rzItem->type = $itemType;
-                        $rzItem->slot = $_POST['RZStructure']['item_slots'][$i];
+                        $rzItem->slot = $_POST['itemtool']['item_slots'][$i];
                         $rzItem->create($newId);
                         $this->rzStructure->items[] = $rzItem;
                     }
