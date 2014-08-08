@@ -159,12 +159,23 @@ class LevelEditor extends BitController
 
         if(count($_POST))
         {
-            $this->rzStructure->bind($_POST['RZStructure']);
-
             try {
+                $this->rzStructure->bind($_POST['RZStructure']);
+                $this->rzStructure->items = array(); #unset
+                if(is_array($_POST['RZStructure']['items']))
+                {
+                    foreach($_POST['RZStructure']['items'] as $i => $itemType)
+                    {
+                        $newId = count($this->rzStructure->items) + 1;
+                        $rzItem = new RZItem();
+                        $rzItem->type = $itemType;
+                        $rzItem->slot = $_POST['RZStructure']['item_slots'][$i];
+                        $rzItem->create($newId);
+                        $this->rzStructure->items[] = $rzItem;
+                    }
+                }
                 $this->rzStructure->edit();
                 $this->rzLevelPack->save();
-                $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
             } catch(Exception $e) {
                 $this->error = $e->getMessage();
             }

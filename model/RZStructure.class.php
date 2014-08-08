@@ -20,9 +20,37 @@ class RZStructure extends RZBase
         return 'structure';
     }
 
+    public function fromXmlNode($node)
+    {
+        $this->id = (string)$node->id;
+        $this->type = (string)$node->type;
+        $this->isOpen = (string)$node->isOpen;
+        $this->isLocked = (string)$node->isLocked;
+
+        foreach($node->items as $items)
+        {
+            foreach($items as $item)
+            {
+                $rzItem = new RZItem();
+                $rzItem->fromXmlNode($item);
+                $this->items[] = $rzItem;
+            }
+        }
+    }
+
     public function canForm($field)
     {
         return in_array($field, array('type', 'isOpen', 'isLocked'));
+    }
+
+    public function buildItemForm()
+    {
+        $s = "<div id='items$this->id'>";
+        foreach($this->items as $item)
+        {
+        }
+        $s .= "</div>";
+        $s .= "<script>$('#items$this->id').append()</script>";
     }
 
     public function create($id)

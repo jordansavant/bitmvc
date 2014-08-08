@@ -10,6 +10,10 @@ body {
     font-family: 'Trebuchet MS';
     font-size: 16px;
 }
+pre {
+    font-family: 'Courier New';
+    font-size: 12px;
+}
 input[type="submit"],
 input[type="button"],
 a {

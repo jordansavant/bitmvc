@@ -99,11 +99,36 @@
       <structures>
         <structure>
           <id>1</id>
-          <type>2</type>
-          <isOpen>0</isOpen>
-          <isLocked>0</isLocked>
-          <items></items>
-          <lights></lights>
+          <type>3</type>
+          <isOpen>1</isOpen>
+          <isLocked>1</isLocked>
+          <items>
+            <item>
+              <id>1</id>
+              <type>2</type>
+              <slot>1</slot>
+              <position>0</position>
+            </item>
+            <item>
+              <id>2</id>
+              <type>1</type>
+              <slot>2</slot>
+              <position>0</position>
+            </item>
+            <item>
+              <id>3</id>
+              <type>2</type>
+              <slot>3</slot>
+              <position>0</position>
+            </item>
+            <item>
+              <id>4</id>
+              <type>1</type>
+              <slot>0</slot>
+              <position>0</position>
+            </item>
+          </items>
+          <lights/>
         </structure>
       </structures>
       <characters/>

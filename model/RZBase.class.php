@@ -6,7 +6,7 @@ abstract class RZBase
     {
         foreach($array as $key => $value)
         {
-            if(property_exists($this, $key))
+            if(property_exists($this, $key) && $this->canForm($key))
             {
                 $this->$key = $value;
             }
@@ -80,9 +80,9 @@ abstract class RZBase
         return true;
     }
 
-    public function validateUnsignedInt($value)
+    public function validateUnsignedInt($value, $positive = true)
     {
-        return is_numeric($value) && (int)$value == $value && $value > 0;
+        return is_numeric($value) && (int)$value == $value && (($positive && $value > 0) || (!$positive && $value >= 0));
     }
 
     public function validateBool($value)
