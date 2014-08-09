@@ -168,6 +168,16 @@ class RZLevel extends RZBase
         $this->structureMap = implode(',', $structuremap);
     }
 
+    public function getNextStructureId()
+    {
+        $newId = 1;
+        foreach($this->structures as $rzStructure)
+        {
+            $newId = max($newId, $rzStructure->id);
+        }
+        return $newId;
+    }
+
     /**
      * Character management
      */
@@ -222,6 +232,16 @@ class RZLevel extends RZBase
         $charactermap = explode(',', $this->characterMap);
         $charactermap[$index] = $rzCharacter->id;
         $this->characterMap = implode(',', $charactermap);
+    }
+
+    public function getNextCharacterId()
+    {
+        $newId = 1;
+        foreach($this->characters as $rzCharacter)
+        {
+            $newId = max($newId, $rzCharacter->id);
+        }
+        return $newId;
     }
 
 

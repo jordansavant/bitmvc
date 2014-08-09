@@ -4,11 +4,12 @@ class LevelEditor extends BitController
     public function __construct($bitmvc)
     {
         parent::__construct($bitmvc);
-        $this->bitTemplate = 'primary';
+        $this->bitTemplate = 'frame';
     }
 
     public function index()
     {
+        $this->bitTemplate = 'primary';
         $dir = dirname(__FILE__)."/";
         $scan = scandir("$dir../data/");
         $this->files = array_diff($scan, array(".", ".."));
@@ -16,6 +17,7 @@ class LevelEditor extends BitController
 
     public function createLevelPack()
     {
+        $this->bitTemplate = 'primary';
         $this->error = '';
         $this->rzLevelPack = new RZLevelPack();
 
@@ -34,16 +36,19 @@ class LevelEditor extends BitController
 
     public function editLevelPack()
     {
+        $this->bitTemplate = 'primary';
         $this->rzLevelPack = new RZLevelPack(@$_GET['lp']);
     }
 
     public function viewLevelPackSource()
     {
+        $this->bitTemplate = 'primary';
         $this->rzLevelPack = new RZLevelPack(@$_GET['lp']);
     }
 
     public function createLevel()
     {
+        $this->bitTemplate = 'primary';
         $this->error = '';
         $this->rzLevelPack = new RZLevelPack(@$_GET['lp']);
         $this->rzLevel = new RZLevel();
@@ -66,6 +71,7 @@ class LevelEditor extends BitController
 
     public function editLevel()
     {
+        $this->bitTemplate = 'primary';
         $this->lp = $_GET['lp'];
         $this->lid = $_GET['lid'];
         $this->rzLevelPack = new RZLevelPack($this->lp);
@@ -100,6 +106,7 @@ class LevelEditor extends BitController
 
     public function editTile()
     {
+        $this->bitTemplate = 'primary';
         $this->lp = $_GET['lp'];
         $this->lid = $_GET['lid'];
         $this->tid = $_GET['tid'];
@@ -127,6 +134,7 @@ class LevelEditor extends BitController
      */
     public function createStructure()
     {
+        $this->bitTemplate = 'primary';
         $this->error = '';
         $this->lp = $_GET['lp'];
         $this->lid = $_GET['lid'];
@@ -140,9 +148,7 @@ class LevelEditor extends BitController
             $this->rzStructure->bind($_POST['RZStructure']);
 
             try {
-                $newId = count($this->rzLevel->structures) + 1;
-                if($this->rzLevel->getStructureById($newId))
-                    throw new Exception("Structure exists with this id");
+                $newId = $this->rzLevel->getNextStructureId();
                 $this->rzStructure->create($newId);
                 $this->rzLevel->addStructureAtIndex($this->rzStructure, $this->index);
                 $this->rzLevelPack->save();
@@ -151,6 +157,25 @@ class LevelEditor extends BitController
                 $this->error = $e->getMessage();
             }
         }
+    }
+
+    public function quickCreateStructure()
+    {
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->index = $_GET['index'];
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzStructure = new RZStructure();
+
+        $this->rzStructure->type = '1';
+        $newId = $this->rzLevel->getNextStructureId();
+        $this->rzStructure->create($newId);
+
+        $this->rzLevel->addStructureAtIndex($this->rzStructure, $this->index);
+        $this->rzLevelPack->save();
+
+        $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
     }
 
     public function editStructure()
@@ -227,6 +252,7 @@ class LevelEditor extends BitController
      */
     public function createCharacter()
     {
+        $this->bitTemplate = 'primary';
         $this->error = '';
         $this->lp = $_GET['lp'];
         $this->lid = $_GET['lid'];
@@ -240,9 +266,7 @@ class LevelEditor extends BitController
             $this->rzCharacter->bind($_POST['RZCharacter']);
 
             try {
-                $newId = count($this->rzLevel->characters) + 1;
-                if($this->rzLevel->getCharacterById($newId))
-                    throw new Exception("Character exists with this id");
+                $newId = $this->rzLevel->getNextCharacterId();
                 $this->rzCharacter->create($newId);
                 $this->rzLevel->addCharacterAtIndex($this->rzCharacter, $this->index);
                 $this->rzLevelPack->save();
@@ -251,6 +275,25 @@ class LevelEditor extends BitController
                 $this->error = $e->getMessage();
             }
         }
+    }
+
+    public function quickCreateCharacter()
+    {
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->index = $_GET['index'];
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzCharacter = new RZCharacter();
+
+        $this->rzCharacter->type = '1';
+        $newId = $this->rzLevel->getNextCharacterId();
+        $this->rzCharacter->create($newId);
+
+        $this->rzLevel->addCharacterAtIndex($this->rzCharacter, $this->index);
+        $this->rzLevelPack->save();
+
+        $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
     }
 
     public function editCharacter()

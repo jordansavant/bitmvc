@@ -8,13 +8,6 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 <body>
-
-<div>
-<a href="index.php?c=<?=$C?>&o=index">Index</a>
-##breadcrumb##
-</div>
-<hr />
 ##header##
 ##content##
-
 </body>

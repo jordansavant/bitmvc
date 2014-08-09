@@ -14,6 +14,6 @@
     <?php echo $this->loadRecurrence("leveleditor.lighttool", array('lights' => $this->rzStructure->lights)); ?>
     <br>
     <br>
-    <input type="submit" value="Save Structure" /> <input type="button" value="Delete Structure" onclick="window.location.href = 'index.php?c=<?=$C?>&o=deleteStructure&lp=<?=$this->lp?>&lid=<?=$this->lid?>&sid=<?=$this->sid?>'" />
+    <input type="submit" value="Save Structure" />
 </form>
 
