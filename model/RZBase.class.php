@@ -69,7 +69,19 @@ abstract class RZBase
             }
             elseif(!is_array($value) && !is_object($value))
             {
-                $s .= '<label class="formLabel">'.$key.':</label> <input type="text" name="'.get_called_class().'['.$key.']" value="'.$value.'" /><br />';
+                if($key == 'type')
+                {
+                    $s .= '<label class="formLabel">'.$key.':</label> ';
+                    $method = 'build'.str_replace('RZ', '', get_called_class()).'DD';
+                    if(method_exists('RZConfig', $method))
+                    {
+                        $s .= RZConfig::$method(get_called_class().'['.$key.']', $value).'<br />';
+                    }
+                }
+                else
+                {
+                    $s .= '<label class="formLabel">'.$key.':</label> <input type="text" name="'.get_called_class().'['.$key.']" value="'.$value.'" /><br />';
+                }
             }
         }
         return $s;

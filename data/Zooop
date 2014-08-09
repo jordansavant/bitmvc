@@ -416,7 +416,7 @@
       <structures>
         <structure>
           <id>1</id>
-          <type>3</type>
+          <type>1</type>
           <isOpen>1</isOpen>
           <isLocked>0</isLocked>
           <items>
@@ -462,7 +462,7 @@
               <red>255</red>
               <green>0</green>
               <blue>0</blue>
-              <brightness>.10</brightness>
+              <brightness>0.1</brightness>
             </light>
           </lights>
         </structure>
