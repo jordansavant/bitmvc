@@ -90,4 +90,14 @@ abstract class RZBase
         return (string)$value == '1' || (string)$value == '0';
     }
 
+    public function validate255($value)
+    {
+        return $this->validateUnsignedInt($value, false) && $value < 256;
+    }
+
+    public function validate01Range($value)
+    {
+        return is_numeric($value) && $value >= 0 && $value <= 1;
+    }
+
 }

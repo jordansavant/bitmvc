@@ -2,7 +2,9 @@
 <head>
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="js/colorpicker.js"></script>
 <link rel="stylesheet" type="text/css" href="css/qtip.css" />
+<link rel="stylesheet" type="text/css" href="css/colorpicker.css" />
 <style>
 body {
     background-color: #272727;
@@ -76,6 +78,19 @@ table.map .structure
     margin: 5px;
     border-radius: 4px;
     background-color: #999;
+}
+</style>
+<style>
+#lighttool, #itemtool
+{
+    border-top: 1px solid #555;
+    padding-top: 10px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+}
+#lights input.ss, #items input.ss
+{
+    width: 30px;
 }
 </style>
 </head>

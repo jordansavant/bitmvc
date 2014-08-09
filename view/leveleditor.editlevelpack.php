@@ -13,3 +13,4 @@ foreach($this->rzLevelPack->levels as $rzLevel)
 ?>
 </ul>
 <a href="index.php?c=<?=$C?>&o=createLevel&lp=<?=$lp?>">Create Level</a>
+<a href="index.php?c=<?=$C?>&o=viewLevelPackSource&lp=<?=$lp?>">View Source</a>

@@ -37,21 +37,21 @@ class RZStructure extends RZBase
                 $this->items[] = $rzItem;
             }
         }
+
+        foreach($node->lights as $lights)
+        {
+            foreach($lights as $light)
+            {
+                $rzLight = new RZLight();
+                $rzLight->fromXmlNode($light);
+                $this->lights[] = $rzLight;
+            }
+        }
     }
 
     public function canForm($field)
     {
         return in_array($field, array('type', 'isOpen', 'isLocked'));
-    }
-
-    public function buildItemForm()
-    {
-        $s = "<div id='items$this->id'>";
-        foreach($this->items as $item)
-        {
-        }
-        $s .= "</div>";
-        $s .= "<script>$('#items$this->id').append()</script>";
     }
 
     public function create($id)

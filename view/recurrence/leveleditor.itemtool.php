@@ -1,3 +1,4 @@
+<div id="itemtool">
 <script>
 var i=0;
 function buildItem(index, dd, slot, pos)
@@ -25,3 +26,4 @@ foreach($args['items'] as $rzItem)
 ?>
 <a href="javascript: addItem();">Add Item</a>
 <script>i=<?=$i+1;?>;</script>
+</div>

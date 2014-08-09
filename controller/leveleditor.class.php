@@ -164,8 +164,9 @@ class LevelEditor extends BitController
         {
             try {
                 $this->rzStructure->bind($_POST['RZStructure']);
+
                 $this->rzStructure->items = array(); #unset
-                if(is_array($_POST['itemtool']['items']))
+                if(is_array($_POST['itemtool']) && is_array($_POST['itemtool']['items']))
                 {
                     foreach($_POST['itemtool']['items'] as $i => $itemType)
                     {
@@ -178,6 +179,24 @@ class LevelEditor extends BitController
                         $this->rzStructure->items[] = $rzItem;
                     }
                 }
+
+                $this->rzStructure->lights = array(); #unset
+                if(is_array($_POST['lighttool']) && is_array($_POST['lighttool']['light_radiuses']))
+                {
+                    foreach($_POST['lighttool']['light_radiuses'] as $i => $lightradius)
+                    {
+                        $newId = count($this->rzStructure->lights) + 1;
+                        $rzLight = new RZLight();
+                        $rzLight->radius = $_POST['lighttool']['light_radiuses'][$i];
+                        $rzLight->red = $_POST['lighttool']['light_reds'][$i];
+                        $rzLight->green = $_POST['lighttool']['light_greens'][$i];
+                        $rzLight->blue = $_POST['lighttool']['light_blues'][$i];
+                        $rzLight->brightness = $_POST['lighttool']['light_brights'][$i];
+                        $rzLight->create($newId);
+                        $this->rzStructure->lights[] = $rzLight;
+                    }
+                }
+
                 $this->rzStructure->edit();
                 $this->rzLevelPack->save();
             } catch(Exception $e) {
