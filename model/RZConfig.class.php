@@ -33,6 +33,15 @@ class RZConfig
         );
     }
 
+    public static function getCharacters()
+    {
+        return array(
+            '1' => 'Zombie',
+            '2' => 'Ogre',
+            '3' => 'Hunter',
+        );
+    }
+
     public static function getTiles()
     {
         return array(
@@ -56,10 +65,23 @@ class RZConfig
     public static function buildStructureDD($name, $selected = null)
     {
         $s = '<select name="'.$name.'">';
-        foreach(self::getStructures() as $strucutreType => $strucutreLabel)
+        foreach(self::getStructures() as $structureType => $structureLabel)
         {
-            $x = $selected == $strucutreType ? 'selected="selected"' : '';
-            $s .= '<option value="'.$strucutreType.'" '.$x.'>'.$strucutreLabel.'</option>';
+            $x = $selected == $structureType ? 'selected="selected"' : '';
+            $s .= '<option value="'.$structureType.'" '.$x.'>'.$structureLabel.'</option>';
+        }
+        $s .= '</select>';
+
+        return $s;
+    }
+
+    public static function buildCharacterDD($name, $selected = null)
+    {
+        $s = '<select name="'.$name.'">';
+        foreach(self::getCharacters() as $characterType => $characterLabel)
+        {
+            $x = $selected == $characterType ? 'selected="selected"' : '';
+            $s .= '<option value="'.$characterType.'" '.$x.'>'.$characterLabel.'</option>';
         }
         $s .= '</select>';
 

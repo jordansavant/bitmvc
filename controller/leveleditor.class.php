@@ -122,6 +122,9 @@ class LevelEditor extends BitController
         }
     }
 
+    /**
+     * Structure CRUD
+     */
     public function createStructure()
     {
         $this->error = '';
@@ -166,7 +169,7 @@ class LevelEditor extends BitController
                 $this->rzStructure->bind($_POST['RZStructure']);
 
                 $this->rzStructure->items = array(); #unset
-                if(is_array($_POST['itemtool']) && is_array($_POST['itemtool']['items']))
+                if(isset($_POST['itemtool']) && is_array($_POST['itemtool']['items']))
                 {
                     foreach($_POST['itemtool']['items'] as $i => $itemType)
                     {
@@ -181,7 +184,7 @@ class LevelEditor extends BitController
                 }
 
                 $this->rzStructure->lights = array(); #unset
-                if(is_array($_POST['lighttool']) && is_array($_POST['lighttool']['light_radiuses']))
+                if(isset($_POST['lighttool']) && is_array($_POST['lighttool']['light_radiuses']))
                 {
                     foreach($_POST['lighttool']['light_radiuses'] as $i => $lightradius)
                     {
@@ -214,6 +217,106 @@ class LevelEditor extends BitController
         $this->rzLevelPack = new RZLevelPack($this->lp);
         $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
         $this->rzLevel->deleteStructureById($this->sid);
+        $this->rzLevelPack->save();
+        $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
+    }
+
+
+    /**
+     * Character CRUD
+     */
+    public function createCharacter()
+    {
+        $this->error = '';
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->index = $_GET['index'];
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzCharacter = new RZCharacter();
+
+        if(count($_POST))
+        {
+            $this->rzCharacter->bind($_POST['RZCharacter']);
+
+            try {
+                $newId = count($this->rzLevel->characters) + 1;
+                if($this->rzLevel->getCharacterById($newId))
+                    throw new Exception("Character exists with this id");
+                $this->rzCharacter->create($newId);
+                $this->rzLevel->addCharacterAtIndex($this->rzCharacter, $this->index);
+                $this->rzLevelPack->save();
+                $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
+            } catch(Exception $e) {
+                $this->error = $e->getMessage();
+            }
+        }
+    }
+
+    public function editCharacter()
+    {
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->cid = $_GET['cid'];
+        $this->error = '';
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzCharacter = $this->rzLevel->getCharacterById($this->cid);
+
+        if(count($_POST))
+        {
+            try {
+                $this->rzCharacter->bind($_POST['RZCharacter']);
+
+                $this->rzCharacter->items = array(); #unset
+                if(isset($_POST['itemtool']) && is_array($_POST['itemtool']['items']))
+                {
+                    foreach($_POST['itemtool']['items'] as $i => $itemType)
+                    {
+                        $newId = count($this->rzCharacter->items) + 1;
+                        $rzItem = new RZItem();
+                        $rzItem->type = $itemType;
+                        $rzItem->slot = $_POST['itemtool']['item_slots'][$i];
+                        $rzItem->position = $_POST['itemtool']['item_poss'][$i];
+                        $rzItem->create($newId);
+                        $this->rzCharacter->items[] = $rzItem;
+                    }
+                }
+
+                $this->rzCharacter->lights = array(); #unset
+                if(isset($_POST['lighttool']) && is_array($_POST['lighttool']['light_radiuses']))
+                {
+                    foreach($_POST['lighttool']['light_radiuses'] as $i => $lightradius)
+                    {
+                        $newId = count($this->rzCharacter->lights) + 1;
+                        $rzLight = new RZLight();
+                        $rzLight->radius = $_POST['lighttool']['light_radiuses'][$i];
+                        $rzLight->red = $_POST['lighttool']['light_reds'][$i];
+                        $rzLight->green = $_POST['lighttool']['light_greens'][$i];
+                        $rzLight->blue = $_POST['lighttool']['light_blues'][$i];
+                        $rzLight->brightness = $_POST['lighttool']['light_brights'][$i];
+                        $rzLight->create($newId);
+                        $this->rzCharacter->lights[] = $rzLight;
+                    }
+                }
+
+                $this->rzCharacter->edit();
+                $this->rzLevelPack->save();
+            } catch(Exception $e) {
+                $this->error = $e->getMessage();
+            }
+        }
+    }
+
+    public function deleteCharacter()
+    {
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->cid = $_GET['cid'];
+        $this->error = '';
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzLevel->deleteCharacterById($this->cid);
         $this->rzLevelPack->save();
         $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
     }

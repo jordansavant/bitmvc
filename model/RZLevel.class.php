@@ -56,6 +56,16 @@ class RZLevel extends RZBase
                 $this->structures[] = $rzStructure;
             }
         }
+
+        foreach($node->characters as $characters)
+        {
+            foreach($characters as $character)
+            {
+                $rzCharacter = new RZCharacter();
+                $rzCharacter->fromXmlNode($character);
+                $this->characters[] = $rzCharacter;
+            }
+        }
     }
 
     public function canForm($field)
@@ -63,6 +73,9 @@ class RZLevel extends RZBase
         return in_array($field, array('title', 'rows', 'columns'));
     }
 
+    /**
+     * Tile management
+     */
     public function getTileByIndex($index)
     {
         $tileMap = explode(',', $this->tileMap);
@@ -84,6 +97,24 @@ class RZLevel extends RZBase
         return null;
     }
 
+    public function addTileAtIndex($rzTile, $index)
+    {
+        # Set the tile
+        if(!is_array($this->tiles))
+        {
+            $this->tiles = array();
+        }
+        $this->tiles[] = $rzTile;
+
+        # Write its id to the position map
+        $tilemap = explode(',', $this->tileMap);
+        $tilemap[$index] = $rzTile->id;
+        $this->tileMap = implode(',', $tilemap);
+    }
+
+    /**
+     * Structure management
+     */
     public function getStructureByIndex($index)
     {
         $structureMap = explode(',', $this->structureMap);
@@ -114,13 +145,85 @@ class RZLevel extends RZBase
             {
                 if($rzStructure->id == $id)
                 {
-                    $this->structureMap = $this->setIdAtIndex($this->structureMap, $i, '0');
+                    $this->structureMap = $this->clearIdFromMap($this->structureMap, $id);
                     unset($this->structures[$i]);
                 }
                 $i++;
             }
         }
     }
+
+    public function addStructureAtIndex($rzStructure, $index)
+    {
+        # Set the structure
+        if(!is_array($this->structures))
+        {
+            $this->structures = array();
+        }
+        $this->structures[] = $rzStructure;
+
+        # Write its id to the position map
+        $structuremap = explode(',', $this->structureMap);
+        $structuremap[$index] = $rzStructure->id;
+        $this->structureMap = implode(',', $structuremap);
+    }
+
+    /**
+     * Character management
+     */
+    public function getCharacterByIndex($index)
+    {
+        $characterMap = explode(',', $this->characterMap);
+        $characterId = $characterMap[$index];
+
+        return $this->getCharacterById($characterId);
+    }
+
+    public function getCharacterById($id)
+    {
+        if(is_array($this->characters))
+        {
+            foreach($this->characters as $rzCharacter)
+            {
+                if($rzCharacter->id == $id)
+                    return $rzCharacter;
+            }
+        }
+        return null;
+    }
+
+    public function deleteCharacterById($id)
+    {
+        if(is_array($this->characters))
+        {
+            $i=0;
+            foreach($this->characters as $rzCharacter)
+            {
+                if($rzCharacter->id == $id)
+                {
+                    $this->characterMap = $this->clearIdFromMap($this->characterMap, $id);
+                    unset($this->characters[$i]);
+                }
+                $i++;
+            }
+        }
+    }
+
+    public function addCharacterAtIndex($rzCharacter, $index)
+    {
+        # Set the character
+        if(!is_array($this->characters))
+        {
+            $this->characters = array();
+        }
+        $this->characters[] = $rzCharacter;
+
+        # Write its id to the position map
+        $charactermap = explode(',', $this->characterMap);
+        $charactermap[$index] = $rzCharacter->id;
+        $this->characterMap = implode(',', $charactermap);
+    }
+
 
     public function create($id)
     {
@@ -175,33 +278,14 @@ class RZLevel extends RZBase
         return implode(',', $map);
     }
 
-    public function addTileAtIndex($rzTile, $index)
+    private function clearIdFromMap($map, $id, $default = '0')
     {
-        # Set the tile
-        if(!is_array($this->tiles))
+        $map = explode(',', $map);
+        foreach($map as $i => $di)
         {
-            $this->tiles = array();
+            if($id == $di)
+                $map[$i] = $default;
         }
-        $this->tiles[] = $rzTile;
-
-        # Write its id to the position map
-        $tilemap = explode(',', $this->tileMap);
-        $tilemap[$index] = $rzTile->id;
-        $this->tileMap = implode(',', $tilemap);
-    }
-
-    public function addStructureAtIndex($rzStructure, $index)
-    {
-        # Set the structure
-        if(!is_array($this->structures))
-        {
-            $this->structures = array();
-        }
-        $this->structures[] = $rzStructure;
-
-        # Write its id to the position map
-        $structuremap = explode(',', $this->structureMap);
-        $structuremap[$index] = $rzStructure->id;
-        $this->structureMap = implode(',', $structuremap);
+        return implode(',', $map);
     }
 }

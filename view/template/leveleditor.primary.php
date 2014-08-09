@@ -79,6 +79,14 @@ table.map .structure
     border-radius: 4px;
     background-color: #999;
 }
+table.map .character
+{
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border-radius: 50px;
+    background-color: #090;
+}
 </style>
 <style>
 #lighttool, #itemtool
