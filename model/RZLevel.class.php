@@ -15,6 +15,7 @@ class RZLevel extends RZBase
     public $tileMap;
     public $structureMap;
     public $characterMap;
+    public $lightMap;
 
     # collections
     public $tiles;
@@ -36,6 +37,7 @@ class RZLevel extends RZBase
         $this->tileMap = (string)$node->tileMap;
         $this->structureMap = (string)$node->structureMap;
         $this->characterMap = (string)$node->characterMap;
+        $this->lightMap = (string)$node->lightMap;
 
         foreach($node->tiles as $tiles)
         {
@@ -64,6 +66,16 @@ class RZLevel extends RZBase
                 $rzCharacter = new RZCharacter();
                 $rzCharacter->fromXmlNode($character);
                 $this->characters[] = $rzCharacter;
+            }
+        }
+
+        foreach($node->lights as $lights)
+        {
+            foreach($lights as $light)
+            {
+                $rzLight = new RZLight();
+                $rzLight->fromXmlNode($light);
+                $this->lights[] = $rzLight;
             }
         }
     }
@@ -173,7 +185,7 @@ class RZLevel extends RZBase
         $newId = 1;
         foreach($this->structures as $rzStructure)
         {
-            $newId = max($newId, $rzStructure->id);
+            $newId = max($newId, $rzStructure->id + 1);
         }
         return $newId;
     }
@@ -239,10 +251,79 @@ class RZLevel extends RZBase
         $newId = 1;
         foreach($this->characters as $rzCharacter)
         {
-            $newId = max($newId, $rzCharacter->id);
+            $newId = max($newId, $rzCharacter->id + 1);
         }
         return $newId;
     }
+
+
+    /**
+     * Light management
+     */
+    public function getLightByIndex($index)
+    {
+        $lightMap = explode(',', $this->lightMap);
+        $lightId = $lightMap[$index];
+
+        return $this->getLightById($lightId);
+    }
+
+    public function getLightById($id)
+    {
+        if(is_array($this->lights))
+        {
+            foreach($this->lights as $rzLight)
+            {
+                if($rzLight->id == $id)
+                    return $rzLight;
+            }
+        }
+        return null;
+    }
+
+    public function deleteLightById($id)
+    {
+        if(is_array($this->lights))
+        {
+            $i=0;
+            foreach($this->lights as $rzLight)
+            {
+                if($rzLight->id == $id)
+                {
+                    $this->lightMap = $this->clearIdFromMap($this->lightMap, $id);
+                    unset($this->lights[$i]);
+                }
+                $i++;
+            }
+        }
+    }
+
+    public function addLightAtIndex($rzLight, $index)
+    {
+        # Set the light
+        if(!is_array($this->lights))
+        {
+            $this->lights = array();
+        }
+        $this->lights[] = $rzLight;
+
+        # Write its id to the position map
+        $lightmap = explode(',', $this->lightMap);
+        $lightmap[$index] = $rzLight->id;
+        $this->lightMap = implode(',', $lightmap);
+    }
+
+    public function getNextLightId()
+    {
+        $newId = 1;
+        foreach($this->lights as $rzLight)
+        {
+            $newId = max($newId, $rzLight->id + 1);
+        }
+        return $newId;
+    }
+
+
 
 
     public function create($id)
@@ -264,6 +345,7 @@ class RZLevel extends RZBase
         $this->tileMap = $this->buildEmptyMap($this->rows, $this->columns);
         $this->structureMap = $this->buildEmptyMap($this->rows, $this->columns);
         $this->characterMap = $this->buildEmptyMap($this->rows, $this->columns);
+        $this->lightMap = $this->buildEmptyMap($this->rows, $this->columns);
 
         # prepopulate tiles
         for($i=0; $i < $this->rows; $i++)

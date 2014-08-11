@@ -5,8 +5,11 @@ function editStructure(id)
 }
 function editCharacter(id)
 {
-    console.log(id);
     $("#frame").attr('src', 'index.php?c=<?=$C?>&o=editCharacter&lp=<?=$this->lp?>&lid=<?=$this->lid?>&cid=' + id);
+}
+function editLight(id)
+{
+    $("#frame").attr('src', 'index.php?c=<?=$C?>&o=editLight&lp=<?=$this->lp?>&lid=<?=$this->lid?>&hid=' + id);
 }
 </script>
 ##start-breadcrumb##
@@ -30,6 +33,7 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
         $rzTile = $this->rzLevel->getTileByIndex($index);
         $rzStructure = $this->rzLevel->getStructureByIndex($index);
         $rzCharacter = $this->rzLevel->getCharacterByIndex($index);
+        $rzLight = $this->rzLevel->getLightByIndex($index);
         ?>
         <td class="cell tile type<?=$rzTile->type?>" id="tile<?=$rzTile->id?>">
             <div style="display: none" id="tile<?=$rzTile->id?>details">
@@ -46,6 +50,13 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
                 echo "<br>Structure: <a href=\"index.php?c=$C&o=quickCreateStructure&lp=$this->lp&lid=$this->lid&index=$index\">Create</a>";
                 echo "<br>Character: <a href=\"index.php?c=$C&o=quickCreateCharacter&lp=$this->lp&lid=$this->lid&index=$index\">Create</a>";
             }
+
+            if($rzLight) {
+                echo "<br>Light: $rzLight->id, <a href=\"javascript: editLight($rzLight->id)\">Edit</a>";
+                ?><a href="index.php?c=<?=$C?>&o=deleteLight&lp=<?=$this->lp?>&lid=<?=$this->lid?>&hid=<?=$rzLight->id?>">Delete</a><?
+            } else {
+                echo "<br>Light: <a href=\"index.php?c=$C&o=createLight&lp=$this->lp&lid=$this->lid&index=$index\">Create</a>";
+            }
             ?>
             </div>
             <?php
@@ -58,13 +69,36 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
                 });
                 </script>
                 <?php
-            }
-            else if($rzCharacter) {
+            } else if($rzCharacter) {
                 ?>
                 <div class="character character<?=$rzCharacter->type?>" id="character<?=$rzCharacter->id?>"></div>
                 <script>
                 $("#character<?=$rzCharacter->id?>").click(function(){
                     editCharacter(<?=$rzCharacter->id?>);
+                });
+                </script>
+                <?php
+            } else {
+                ?>
+                <div class="createHolder" id="createHolder<?=$index?>"></div>
+                <script>
+                $("#createHolder<?=$index?>").click(function(evt){
+                    console.log(evt.ctrlKey);
+                    if(evt.ctrlKey)
+                        window.location.href = 'index.php?c=<?=$C?>&o=quickCreateStructure&lp=<?=$this->lp?>&lid=<?=$this->lid?>&index=<?=$index?>';
+                    else if(evt.shiftKey)
+                        window.location.href = 'index.php?c=<?=$C?>&o=quickCreateCharacter&lp=<?=$this->lp?>&lid=<?=$this->lid?>&index=<?=$index?>';
+                });
+                </script>
+                <?php
+            }
+
+            if($rzLight) {
+                ?>
+                <div class="light" id="light<?=$rzLight->id?>" style="background-color: rgb(<?="$rzLight->red, $rzLight->green, $rzLight->blue"?>);"></div>
+                <script>
+                $("#light<?=$rzLight->id?>").click(function(){
+                    editLight(<?=$rzLight->id?>);
                 });
                 </script>
                 <?php

@@ -19,8 +19,11 @@ class RZConfig
     public static function getItems()
     {
         return array(
-            '1' => 'Hardhat',
-            '2' => 'Magnum',
+            '1' => 'Backpack',
+            '2' => 'Hardhat',
+            '3' => '357 Magnum',
+            '4' => 'Z4 Rifle',
+            '5' => 'Crowbar',
         );
     }
 
@@ -45,7 +48,8 @@ class RZConfig
     public static function getTiles()
     {
         return array(
-            '1' => 'Concrete',
+            '1' => 'Ground',
+            '2' => 'Spawn',
         );
     }
 

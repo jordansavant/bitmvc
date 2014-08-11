@@ -364,5 +364,70 @@ class LevelEditor extends BitController
         $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
     }
 
+
+    /**
+     * Light CRUD
+     */
+    public function createLight()
+    {
+        $this->bitTemplate = 'primary';
+        $this->error = '';
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->index = $_GET['index'];
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzLight = new RZLight();
+
+        if(count($_POST))
+        {
+            $this->rzLight->bind($_POST['RZLight']);
+
+            try {
+                $newId = $this->rzLevel->getNextLightId();
+                $this->rzLight->create($newId);
+                $this->rzLevel->addLightAtIndex($this->rzLight, $this->index);
+                $this->rzLevelPack->save();
+                $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
+            } catch(Exception $e) {
+                $this->error = $e->getMessage();
+            }
+        }
+    }
+
+    public function editLight()
+    {
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->hid = $_GET['hid'];
+        $this->error = '';
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzLight = $this->rzLevel->getLightById($this->hid);
+
+        if(count($_POST))
+        {
+            try {
+                $this->rzLight->bind($_POST['RZLight']);
+                $this->rzLight->edit();
+                $this->rzLevelPack->save();
+            } catch(Exception $e) {
+                $this->error = $e->getMessage();
+            }
+        }
+    }
+
+    public function deleteLight()
+    {
+        $this->lp = $_GET['lp'];
+        $this->lid = $_GET['lid'];
+        $this->hid = $_GET['hid'];
+        $this->error = '';
+        $this->rzLevelPack = new RZLevelPack($this->lp);
+        $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+        $this->rzLevel->deleteLightById($this->hid);
+        $this->rzLevelPack->save();
+        $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);
+    }
 }
 

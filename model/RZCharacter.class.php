@@ -5,7 +5,6 @@ class RZCharacter extends RZBase
     public function __construct()
     {
         $this->items = $this->lights = array();
-        $this->isOpen = $this->isLocked = '0';
     }
 
     # properties
