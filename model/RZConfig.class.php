@@ -19,11 +19,26 @@ class RZConfig
     public static function getItems()
     {
         return array(
+            '0' => '--',
             '1' => 'Backpack',
             '2' => 'Hardhat',
-            '3' => '357 Magnum',
+            '3' => 'Magnum',
             '4' => 'Z4 Rifle',
             '5' => 'Crowbar',
+        );
+    }
+
+    public static function getEquipmentSlots()
+    {
+        return array(
+            '0' => 'Head',
+            '1' => 'Chest',
+            '2' => 'Legs',
+            '3' => 'Feet',
+            '4' => 'Hands',
+            '5' => 'Totem',
+            '6' => 'WeaponPrimary',
+            '7' => 'WeaponSecondary',
         );
     }
 
@@ -60,6 +75,20 @@ class RZConfig
         {
             $x = $selected == $itemType ? 'selected="selected"' : '';
             $s .= '<option value="'.$itemType.'" '.$x.'>'.$itemLabel.'</option>';
+        }
+        $s .= '</select>';
+
+        return $s;
+    }
+
+    public static function buildEquipmentSlotDD($name, $selected = null)
+    {
+        $s = '<select name="'.$name.'">';
+        $s .= '<option value="">--</option>';
+        foreach(self::getEquipmentSlots() as $equipmentSlotType => $equipmentSlotLabel)
+        {
+            $x = (string)$selected == (string)$equipmentSlotType ? 'selected="selected"' : '';
+            $s .= '<option value="'.$equipmentSlotType.'" '.$x.'>'.$equipmentSlotLabel.'</option>';
         }
         $s .= '</select>';
 

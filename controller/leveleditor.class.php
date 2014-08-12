@@ -201,7 +201,6 @@ class LevelEditor extends BitController
                         $newId = count($this->rzStructure->items) + 1;
                         $rzItem = new RZItem();
                         $rzItem->type = $itemType;
-                        $rzItem->slot = $_POST['itemtool']['item_slots'][$i];
                         $rzItem->position = $_POST['itemtool']['item_poss'][$i];
                         $rzItem->create($newId);
                         $this->rzStructure->items[] = $rzItem;
@@ -319,7 +318,6 @@ class LevelEditor extends BitController
                         $newId = count($this->rzCharacter->items) + 1;
                         $rzItem = new RZItem();
                         $rzItem->type = $itemType;
-                        $rzItem->slot = $_POST['itemtool']['item_slots'][$i];
                         $rzItem->position = $_POST['itemtool']['item_poss'][$i];
                         $rzItem->create($newId);
                         $this->rzCharacter->items[] = $rzItem;
@@ -342,6 +340,24 @@ class LevelEditor extends BitController
                         $this->rzCharacter->lights[] = $rzLight;
                     }
                 }
+
+                $this->rzCharacter->equipment = array(); #unset
+                if(isset($_POST['equipment']) && is_array($_POST['equipment']['slots']))
+                {
+                    foreach($_POST['equipment']['slots'] as $i => $slot)
+                    {
+                        if($_POST['equipment']['items'][$i])
+                        {
+                            $newId = count($this->rzCharacter->equipment) + 1;
+                            $rzItem = new RZItem();
+                            $rzItem->type = $_POST['equipment']['items'][$i];
+                            $rzItem->slot = $_POST['equipment']['slots'][$i];
+                            $rzItem->create($newId);
+                            $this->rzCharacter->equipment[] = $rzItem;
+                        }
+                    }
+                }
+
 
                 $this->rzCharacter->edit();
                 $this->rzLevelPack->save();

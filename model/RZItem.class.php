@@ -4,7 +4,7 @@ class RZItem extends RZBase
 {
     public function __construct()
     {
-        $this->slot = $this->position = '0';
+        $this->position = '0';
     }
 
     # properties
@@ -38,9 +38,6 @@ class RZItem extends RZBase
     {
         if(!$this->validateUnsignedInt($this->type))
             throw new Exception("Type must be a positive number");
-
-        if(!$this->validateUnsignedInt($this->slot, false))
-            throw new Exception("Slot must be a positive number");
 
         if(!$this->validateUnsignedInt($this->position, false))
             throw new Exception("Position must be a positive number");

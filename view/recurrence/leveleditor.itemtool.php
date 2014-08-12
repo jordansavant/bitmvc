@@ -1,9 +1,9 @@
 <div id="itemtool">
 <script>
 var i=0;
-function buildItem(index, dd, slot, pos)
+function buildItem(index, dd, pos)
 {
-    return '<div id="item'+ index +'"> slot:<input type="text" style="width: 20px" name="itemtool[item_slots][]" value="'+slot+'" /> pos:<input type="text" style="width: 20px" name="itemtool[item_poss][]"" value="'+pos+'" /> '+dd+' <a href="javascript: removeItem('+ index +');">X</a></div>'
+    return '<div id="item'+ index +'"> pos:<input type="text" style="width: 20px" name="itemtool[item_poss][]"" value="'+pos+'" /> '+dd+' <a href="javascript: removeItem('+ index +');">X</a></div>'
 }
 function addItem()
 {
@@ -20,7 +20,7 @@ function removeItem(index)
 $i=0;
 foreach($args['items'] as $rzItem)
 {
-    echo "<script> $('#items').append(buildItem($i, '". RZConfig::buildItemDD('itemtool[items][]', $rzItem->type) ."', ".$rzItem->slot.", ".$rzItem->position.")); </script>";
+    echo "<script> $('#items').append(buildItem($i, '". RZConfig::buildItemDD('itemtool[items][]', $rzItem->type) ."', ".$rzItem->position.")); </script>";
     $i++;
 }
 ?>

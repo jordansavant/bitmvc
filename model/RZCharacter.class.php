@@ -4,7 +4,7 @@ class RZCharacter extends RZBase
 {
     public function __construct()
     {
-        $this->items = $this->lights = array();
+        $this->equipment = $this->items = $this->lights = array();
     }
 
     # properties
@@ -12,6 +12,7 @@ class RZCharacter extends RZBase
     public $type;
     public $items;
     public $lights;
+    public $equipment;
 
     public function getNodeName()
     {
@@ -42,6 +43,17 @@ class RZCharacter extends RZBase
                 $this->lights[] = $rzLight;
             }
         }
+
+        foreach($node->equipment as $items)
+        {
+            foreach($items as $item)
+            {
+                $rzItem = new RZItem();
+                $rzItem->fromXmlNode($item);
+                $this->equipment[] = $rzItem;
+            }
+        }
+
     }
 
     public function canForm($field)

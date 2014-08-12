@@ -9,8 +9,13 @@
 <form action="index.php?c=<?=$C?>&o=editCharacter&lp=<?=$this->lp?>&lid=<?=$this->lid?>&cid=<?=$this->cid?>" method="post">
     <?php echo $this->rzCharacter->toForm(); ?>
     <br>
+    Items:<br>
     <?php echo $this->loadRecurrence("leveleditor.itemtool", array('items' => $this->rzCharacter->items)); ?>
     <br>
+    Equipment:<br>
+    <?php echo $this->loadRecurrence("leveleditor.equipmenttool", array('equipment' => $this->rzCharacter->equipment)); ?>
+    <br>
+    Lights:<br>
     <?php echo $this->loadRecurrence("leveleditor.lighttool", array('lights' => $this->rzCharacter->lights)); ?>
     <br>
     <br>

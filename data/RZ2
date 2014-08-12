@@ -761,13 +761,13 @@
             <item>
               <id>1</id>
               <type>2</type>
-              <slot>0</slot>
+              <slot></slot>
               <position>0</position>
             </item>
             <item>
               <id>2</id>
-              <type>4</type>
-              <slot>0</slot>
+              <type>3</type>
+              <slot></slot>
               <position>0</position>
             </item>
           </items>
@@ -780,11 +780,26 @@
           <type>1</type>
           <items/>
           <lights/>
+          <equipment>
+            <item>
+              <id>1</id>
+              <type>5</type>
+              <slot>6</slot>
+              <position>0</position>
+            </item>
+          </equipment>
         </character>
         <character>
           <id>2</id>
           <type>1</type>
-          <items/>
+          <items>
+            <item>
+              <id>1</id>
+              <type>3</type>
+              <slot></slot>
+              <position>0</position>
+            </item>
+          </items>
           <lights>
             <light>
               <id>1</id>
@@ -792,15 +807,38 @@
               <red>156</red>
               <green>240</green>
               <blue>156</blue>
-              <brightness>.5</brightness>
+              <brightness>0.5</brightness>
+            </light>
+            <light>
+              <id>2</id>
+              <radius>3</radius>
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+              <brightness>1</brightness>
             </light>
           </lights>
+          <equipment>
+            <item>
+              <id>1</id>
+              <type>2</type>
+              <slot>0</slot>
+              <position>0</position>
+            </item>
+            <item>
+              <id>2</id>
+              <type>3</type>
+              <slot>6</slot>
+              <position>0</position>
+            </item>
+          </equipment>
         </character>
         <character>
           <id>3</id>
           <type>1</type>
           <items/>
           <lights/>
+          <equipment/>
         </character>
       </characters>
       <lights>
