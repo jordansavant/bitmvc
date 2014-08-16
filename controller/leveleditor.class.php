@@ -117,9 +117,22 @@ class LevelEditor extends BitController
 
         if(count($_POST))
         {
-            $this->rzTile->bind($_POST['RZTile']);
-
             try {
+                $this->rzTile->bind($_POST['RZTile']);
+                $this->rzTile->enterEvents = array(); #unset
+                if(isset($_POST['eventtool']) && is_array($_POST['eventtool']['events']))
+                {
+                    foreach($_POST['eventtool']['events'] as $i => $eventType)
+                    {
+                        $newId = count($this->rzTile->enterEvents) + 1;
+                        $rzEvent = new RZEvent();
+                        $rzEvent->type = $eventType;
+                        $rzEvent->targetLevelId = $_POST['eventtool']['event_tli'][$i];
+                        $rzEvent->targetEntranceId = $_POST['eventtool']['event_tei'][$i];
+                        $rzEvent->create($newId);
+                        $this->rzTile->enterEvents[] = $rzEvent;
+                    }
+                }
                 $this->rzTile->edit();
                 $this->rzLevelPack->save();
                 $this->redirect("index.php?c=".__CLASS__."&o=editLevel&lp=".$this->rzLevelPack->name."&lid=".$this->rzLevel->id);

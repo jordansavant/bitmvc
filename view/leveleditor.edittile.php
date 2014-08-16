@@ -7,9 +7,11 @@
 
 <?php echo $this->error ? $this->error ."<br>" : ""; ?>
 <form action="index.php?c=<?=$C?>&o=editTile&lp=<?=$this->lp?>&lid=<?=$this->lid?>&tid=<?=$this->tid?>" method="post">
-<?php
-echo $this->rzTile->toForm();
-?>
+    <?php echo $this->rzTile->toForm(); ?>
+    <br>
+    Enter Events:<br>
+    <?php echo $this->loadRecurrence("leveleditor.eventtool", array('events' => $this->rzTile->enterEvents)); ?>
+    <br>
 <br>
 <input type="submit" value="Save Tile" />
 </form>

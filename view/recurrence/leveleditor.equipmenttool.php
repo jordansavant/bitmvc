@@ -13,7 +13,7 @@ foreach(RZConfig::getEquipmentSlots() as $k => $v)
             $type = $rzItem->type;
         }
     }
-    echo RZConfig::buildEquipmentSlotDD('equipment[slots][]', $slot);
+    echo '<input name="equipment[slots][]" type="hidden" value="'.$slot.'" /><label class="formLabel">'.$v.'</label>';
     echo RZConfig::buildItemDD('equipment[items][]', $type);
     echo '<br>';
 }

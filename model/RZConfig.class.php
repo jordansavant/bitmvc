@@ -64,9 +64,18 @@ class RZConfig
     {
         return array(
             '1' => 'Ground',
-            '2' => 'Spawn',
         );
     }
+
+    public static function getEvents()
+    {
+        return array(
+            '1' => 'GoToLevel',
+            '2' => 'GameVictory',
+            '3' => 'GameDefeat',
+        );
+    }
+
 
     public static function buildItemDD($name, $selected = null)
     {
@@ -81,56 +90,42 @@ class RZConfig
         return $s;
     }
 
-    public static function buildEquipmentSlotDD($name, $selected = null)
+    protected static function buildDD($elements, $name, $selected = null, $supportsBlank = false)
     {
         $s = '<select name="'.$name.'">';
-        $s .= '<option value="">--</option>';
-        foreach(self::getEquipmentSlots() as $equipmentSlotType => $equipmentSlotLabel)
+        $s .= $supportsBlank ? '<option value="">--</option>' : '';
+        foreach($elements as $key => $value)
         {
-            $x = (string)$selected == (string)$equipmentSlotType ? 'selected="selected"' : '';
-            $s .= '<option value="'.$equipmentSlotType.'" '.$x.'>'.$equipmentSlotLabel.'</option>';
+            $x = (string)$selected == (string)$key ? 'selected="selected"' : '';
+            $s .= '<option value="'.$key.'" '.$x.'>'.$value.'</option>';
         }
         $s .= '</select>';
-
         return $s;
+    }
+
+    public static function buildEquipmentSlotDD($name, $selected = null)
+    {
+        return self::buildDD(self::getEquipmentSlots(), $name, $selected, true);
     }
 
     public static function buildStructureDD($name, $selected = null)
     {
-        $s = '<select name="'.$name.'">';
-        foreach(self::getStructures() as $structureType => $structureLabel)
-        {
-            $x = $selected == $structureType ? 'selected="selected"' : '';
-            $s .= '<option value="'.$structureType.'" '.$x.'>'.$structureLabel.'</option>';
-        }
-        $s .= '</select>';
-
-        return $s;
+        return self::buildDD(self::getStructures(), $name, $selected);
     }
 
     public static function buildCharacterDD($name, $selected = null)
     {
-        $s = '<select name="'.$name.'">';
-        foreach(self::getCharacters() as $characterType => $characterLabel)
-        {
-            $x = $selected == $characterType ? 'selected="selected"' : '';
-            $s .= '<option value="'.$characterType.'" '.$x.'>'.$characterLabel.'</option>';
-        }
-        $s .= '</select>';
-
-        return $s;
+        return self::buildDD(self::getCharacters(), $name, $selected);
     }
 
     public static function buildTileDD($name, $selected = null)
     {
-        $s = '<select name="'.$name.'">';
-        foreach(self::getTiles() as $tileType => $tileLabel)
-        {
-            $x = $selected == $tileType ? 'selected="selected"' : '';
-            $s .= '<option value="'.$tileType.'" '.$x.'>'.$tileLabel.'</option>';
-        }
-        $s .= '</select>';
-
-        return $s;
+        return self::buildDD(self::getTiles(), $name, $selected);
     }
+
+    public static function buildEventDD($name, $selected = null)
+    {
+        return self::buildDD(self::getEvents(), $name, $selected);
+    }
+
 }

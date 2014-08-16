@@ -22,6 +22,9 @@ function editLight(id)
         <td style="width:50%">
 <table class="map">
 <?php
+$characterTypes = RZConfig::getCharacters();
+$structureTypes = RZConfig::getStructures();
+$tileTypes = RZConfig::getTiles();
 for($i=0; $i < $this->rzLevel->rows; $i++)
 {
     ?>
@@ -38,24 +41,24 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
         <td class="cell tile type<?=$rzTile->type?>" id="tile<?=$rzTile->id?>">
             <div style="display: none" id="tile<?=$rzTile->id?>details">
             <?php
-            echo "Tile: $rzTile->id, type = $rzTile->type  <a href=\"index.php?c=$C&o=editTile&lp=$this->lp&lid=$this->lid&tid=$rzTile->id\">Edit</a>";
+            echo $tileTypes[$rzTile->type]." ($rzTile->id) <a href=\"index.php?c=$C&o=editTile&lp=$this->lp&lid=$this->lid&tid=$rzTile->id\">Edit</a>";
 
             if($rzStructure) {
-                echo "<br>Structure: $rzStructure->id, type = $rzStructure->type  <a href=\"javascript: editStructure($rzStructure->id);\">Edit</a>";
+                echo "<br>".$structureTypes[$rzStructure->type]." ($rzStructure->id) <a href=\"javascript: editStructure($rzStructure->id);\">Edit</a>";
                 ?><a href="index.php?c=<?=$C?>&o=deleteStructure&lp=<?=$this->lp?>&lid=<?=$this->lid?>&sid=<?=$rzStructure->id?>">Delete</a><?
             } else if($rzCharacter) {
-                echo "<br>Character: $rzCharacter->id, type = $rzCharacter->type  <a href=\"javascript: editCharacter($rzCharacter->id)\">Edit</a>";
+                echo "<br>".$characterTypes[$rzCharacter->type]." ($rzCharacter->id) <a href=\"javascript: editCharacter($rzCharacter->id)\">Edit</a>";
                 ?><a href="index.php?c=<?=$C?>&o=deleteCharacter&lp=<?=$this->lp?>&lid=<?=$this->lid?>&cid=<?=$rzCharacter->id?>">Delete</a><?
             } else {
-                echo "<br>Structure: <a href=\"index.php?c=$C&o=quickCreateStructure&lp=$this->lp&lid=$this->lid&index=$index\">Create</a>";
-                echo "<br>Character: <a href=\"index.php?c=$C&o=quickCreateCharacter&lp=$this->lp&lid=$this->lid&index=$index\">Create</a>";
+                echo "<br><a href=\"index.php?c=$C&o=quickCreateStructure&lp=$this->lp&lid=$this->lid&index=$index\">Create Structure</a>";
+                echo "<br><a href=\"index.php?c=$C&o=quickCreateCharacter&lp=$this->lp&lid=$this->lid&index=$index\">Create Character</a>";
             }
 
             if($rzLight) {
-                echo "<br>Light: $rzLight->id, <a href=\"javascript: editLight($rzLight->id)\">Edit</a>";
+                echo "<br>Light R$rzLight->red G$rzLight->green B$rzLight->blue ($rzLight->id) <a href=\"javascript: editLight($rzLight->id)\">Edit</a>";
                 ?><a href="index.php?c=<?=$C?>&o=deleteLight&lp=<?=$this->lp?>&lid=<?=$this->lid?>&hid=<?=$rzLight->id?>">Delete</a><?
             } else {
-                echo "<br>Light: <a href=\"index.php?c=$C&o=createLight&lp=$this->lp&lid=$this->lid&index=$index\">Create</a>";
+                echo "<br><a href=\"index.php?c=$C&o=createLight&lp=$this->lp&lid=$this->lid&index=$index\">Create Light</a>";
             }
             ?>
             </div>
@@ -101,6 +104,12 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
                     editLight(<?=$rzLight->id?>);
                 });
                 </script>
+                <?php
+            }
+
+            if(count($rzTile->enterEvents) > 0 || count($rzTile->exitEvents) > 0) {
+                ?>
+                <div class="tileEvents" title="Has events"></div>
                 <?php
             }
             ?>
