@@ -43,6 +43,16 @@ class RZTile extends RZBase
                 $this->enterEvents[] = $rzEvent;
             }
         }
+
+        foreach($node->entrances as $entrances)
+        {
+            foreach($entrances as $entrance)
+            {
+                $rzEntrance = new RZEntrance();
+                $rzEntrance->fromXmlNode($entrance);
+                $this->entrances[] = $rzEntrance;
+            }
+        }
     }
 
     public function canForm($field)

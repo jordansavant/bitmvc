@@ -22,10 +22,9 @@ class RZEvent extends RZBase
         return in_array($field, array('type'));
     }
 
-    public function create($id)
+    public function create()
     {
         $this->validate();
-        $this->id = $id;
     }
 
     public function edit()

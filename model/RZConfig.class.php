@@ -70,9 +70,10 @@ class RZConfig
     public static function getEvents()
     {
         return array(
-            '1' => 'GoToLevel',
-            '2' => 'GameVictory',
-            '3' => 'GameDefeat',
+            '1' => 'Player GoToLevel',
+            '2' => 'NPC GoToLevel',
+            '3' => 'GameVictory',
+            '4' => 'GameDefeat',
         );
     }
 

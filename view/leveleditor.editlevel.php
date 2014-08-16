@@ -112,6 +112,12 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
                 <div class="tileEvents" title="Has events"></div>
                 <?php
             }
+
+            if(count($rzTile->entrances) > 0) {
+                ?>
+                <div class="tileEntrances" title="Has eventrances"></div>
+                <?php
+            }
             ?>
         </td>
         <script>

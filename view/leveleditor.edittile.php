@@ -10,7 +10,13 @@
     <?php echo $this->rzTile->toForm(); ?>
     <br>
     Enter Events:<br>
-    <?php echo $this->loadRecurrence("leveleditor.eventtool", array('events' => $this->rzTile->enterEvents)); ?>
+    <?php echo $this->loadRecurrence("leveleditor.eventtool", array('events' => $this->rzTile->enterEvents, 'prefix' => 'enter')); ?>
+    <br>
+    Exit Events:<br>
+    <?php echo $this->loadRecurrence("leveleditor.eventtool", array('events' => $this->rzTile->exitEvents, 'prefix' => 'exit')); ?>
+    <br>
+    Entrances:<br>
+    <?php echo $this->loadRecurrence("leveleditor.entrancetool", array('entrances' => $this->rzTile->entrances)); ?>
     <br>
 <br>
 <input type="submit" value="Save Tile" />

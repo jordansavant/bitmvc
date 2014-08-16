@@ -120,17 +120,43 @@ class LevelEditor extends BitController
             try {
                 $this->rzTile->bind($_POST['RZTile']);
                 $this->rzTile->enterEvents = array(); #unset
-                if(isset($_POST['eventtool']) && is_array($_POST['eventtool']['events']))
+                if(isset($_POST['entereventtool']) && is_array($_POST['entereventtool']['events']))
                 {
-                    foreach($_POST['eventtool']['events'] as $i => $eventType)
+                    foreach($_POST['entereventtool']['events'] as $i => $eventType)
                     {
-                        $newId = count($this->rzTile->enterEvents) + 1;
                         $rzEvent = new RZEvent();
                         $rzEvent->type = $eventType;
-                        $rzEvent->targetLevelId = $_POST['eventtool']['event_tli'][$i];
-                        $rzEvent->targetEntranceId = $_POST['eventtool']['event_tei'][$i];
-                        $rzEvent->create($newId);
+                        $rzEvent->targetLevelId = $_POST['entereventtool']['event_tli'][$i];
+                        $rzEvent->targetEntranceId = $_POST['entereventtool']['event_tei'][$i];
+                        $rzEvent->create();
                         $this->rzTile->enterEvents[] = $rzEvent;
+                    }
+                }
+
+                $this->rzTile->exitEvents = array(); #unset
+                if(isset($_POST['exiteventtool']) && is_array($_POST['exiteventtool']['events']))
+                {
+                    foreach($_POST['exiteventtool']['events'] as $i => $eventType)
+                    {
+                        $rzEvent = new RZEvent();
+                        $rzEvent->type = $eventType;
+                        $rzEvent->targetLevelId = $_POST['exiteventtool']['event_tli'][$i];
+                        $rzEvent->targetEntranceId = $_POST['exiteventtool']['event_tei'][$i];
+                        $rzEvent->create();
+                        $this->rzTile->exitEvents[] = $rzEvent;
+                    }
+                }
+
+                $this->rzTile->entrances = array(); #unset
+                if(isset($_POST['entrancetool']) && is_array($_POST['entrancetool']['id']))
+                {
+                    foreach($_POST['entrancetool']['id'] as $i => $id)
+                    {
+                        $rzEntrance = new RZEntrance();
+                        $rzEntrance->id = $id;
+                        $rzEntrance->priority = $_POST['entrancetool']['priority'][$i];
+                        $rzEntrance->create();
+                        $this->rzTile->entrances[] = $rzEntrance;
                     }
                 }
                 $this->rzTile->edit();

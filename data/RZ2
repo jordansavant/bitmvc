@@ -123,7 +123,12 @@
           <type>1</type>
           <enterEvents/>
           <exitEvents/>
-          <entrances/>
+          <entrances>
+            <entrance>
+              <id>1</id>
+              <priority>0</priority>
+            </entrance>
+          </entrances>
         </tile>
         <tile>
           <id>17</id>
@@ -147,10 +152,15 @@
               <type>1</type>
               <targetLevelId>1</targetLevelId>
               <targetEntranceId>1</targetEntranceId>
-              <id>1</id>
             </event>
           </enterEvents>
-          <exitEvents/>
+          <exitEvents>
+            <event>
+              <type>3</type>
+              <targetLevelId>0</targetLevelId>
+              <targetEntranceId>0</targetEntranceId>
+            </event>
+          </exitEvents>
           <entrances/>
         </tile>
         <tile>
