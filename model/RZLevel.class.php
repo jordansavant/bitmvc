@@ -5,6 +5,7 @@ class RZLevel extends RZBase
     public function __construct()
     {
         $this->tiles = $this->structures = $this->characters = $this->lights = array();
+        $this->defaultEntranceId = '0';
     }
 
     # properties
@@ -12,6 +13,7 @@ class RZLevel extends RZBase
     public $title;
     public $rows;
     public $columns;
+    public $defaultEntranceId;
     public $tileMap;
     public $structureMap;
     public $characterMap;
@@ -82,7 +84,7 @@ class RZLevel extends RZBase
 
     public function canForm($field)
     {
-        return in_array($field, array('title', 'rows', 'columns'));
+        return in_array($field, array('title', 'rows', 'columns', 'defaultEntranceId'));
     }
 
     /**
@@ -328,17 +330,7 @@ class RZLevel extends RZBase
 
     public function create($id)
     {
-        # Validate
-        if(!$this->title)
-        {
-            throw new Exception("Title is required");
-        }
-
-        if(!$this->validateUnsignedInt($this->rows) || !$this->validateUnsignedInt($this->columns))
-        {
-            throw new Exception("Rows and columns must be a positive number");
-        }
-
+        $this->validate();
         $this->id = $id;
 
         # create maps
@@ -359,6 +351,24 @@ class RZLevel extends RZBase
                 $this->addTileAtIndex($rzTile, $index);
             }
         }
+    }
+
+    public function edit()
+    {
+        $this->validate();
+    }
+
+    private function validate()
+    {
+        # Validate
+        if(!$this->title)
+            throw new Exception("Title is required");
+
+        if(!$this->validateUnsignedInt($this->rows) || !$this->validateUnsignedInt($this->columns))
+            throw new Exception("Rows and columns must be a positive number");
+
+        if(!$this->validateUnsignedInt($this->defaultEntranceId, false))
+            throw new Exception("Default entrance id must be an unsigned int");
     }
 
     private function buildEmptyMap($rows, $columns)

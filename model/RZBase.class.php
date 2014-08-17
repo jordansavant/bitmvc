@@ -54,13 +54,15 @@ abstract class RZBase
     }
 
 
-    public function toForm()
+    public function toForm($only = array())
     {
         $s = '';
         foreach($this as $key => $value)
         {
             if(!$this->canForm($key))
                 continue;
+
+            $hidden = (is_array($only) && !in_array($key, $only));
 
             if($value instanceof RZBase)
             {
@@ -69,18 +71,25 @@ abstract class RZBase
             }
             elseif(!is_array($value) && !is_object($value))
             {
-                if($key == 'type')
+                if($hidden)
                 {
-                    $s .= '<label class="formLabel">'.$key.':</label> ';
-                    $method = 'build'.str_replace('RZ', '', get_called_class()).'DD';
-                    if(method_exists('RZConfig', $method))
-                    {
-                        $s .= RZConfig::$method(get_called_class().'['.$key.']', $value).'<br />';
-                    }
+                    $s .= '<input type="hidden" name="'.get_called_class().'['.$key.']" value="'.$value.'" />';
                 }
                 else
                 {
-                    $s .= '<label class="formLabel">'.$key.':</label> <input type="text" name="'.get_called_class().'['.$key.']" value="'.$value.'" /><br />';
+                    if($key == 'type')
+                    {
+                        $s .= '<label class="formLabel">'.$key.':</label> ';
+                        $method = 'build'.str_replace('RZ', '', get_called_class()).'DD';
+                        if(method_exists('RZConfig', $method))
+                        {
+                            $s .= RZConfig::$method(get_called_class().'['.$key.']', $value).'<br />';
+                        }
+                    }
+                    else
+                    {
+                        $s .= '<label class="formLabel">'.$key.':</label> <input type="text" name="'.get_called_class().'['.$key.']" value="'.$value.'" /><br />';
+                    }
                 }
             }
         }

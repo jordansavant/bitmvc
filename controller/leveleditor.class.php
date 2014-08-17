@@ -71,11 +71,24 @@ class LevelEditor extends BitController
 
     public function editLevel()
     {
+        $this->error = '';
         $this->bitTemplate = 'primary';
         $this->lp = $_GET['lp'];
         $this->lid = $_GET['lid'];
         $this->rzLevelPack = new RZLevelPack($this->lp);
         $this->rzLevel = $this->rzLevelPack->getLevelById($this->lid);
+
+        if(count($_POST))
+        {
+            $this->rzLevel->bind($_POST['RZLevel']);
+
+            try {
+                $this->rzLevel->edit();
+                $this->rzLevelPack->save();
+            } catch(Exception $e) {
+                $this->error = $e->getMessage();
+            }
+        }
     }
 
     public function createTile()

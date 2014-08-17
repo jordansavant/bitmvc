@@ -7,6 +7,7 @@ class RZLevelPack extends RZBase
         $this->name = $name;
         $this->version = RZConfig::getVersion();
         $this->levels = array();
+        $this->defaultLevelId = '1';
 
         if($this->name)
         {
@@ -16,6 +17,7 @@ class RZLevelPack extends RZBase
 
     public $version;
     public $name;
+    public $defaultLevelId;
     public $levels;
 
     public function getNodeName()
@@ -45,6 +47,9 @@ class RZLevelPack extends RZBase
         $xml = $this->getXmlSource();
 
         $nodes = new SimpleXMLElement($xml);
+        $this->version = (string)$nodes->version;
+        $this->name = (string)$nodes->name;
+        $this->defaultLevelId = (string)$nodes->defaultLevelId;
         foreach($nodes->levels as $levels)
         {
             foreach($levels as $level)

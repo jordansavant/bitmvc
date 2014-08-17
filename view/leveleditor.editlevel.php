@@ -148,3 +148,10 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
     </tr>
 </table>
 </ul>
+
+<?php echo $this->error ? $this->error ."<br>" : ""; ?>
+<form action="index.php?c=<?=$C?>&o=editLevel&lp=<?=$this->lp?>&lid=<?=$this->lid?>" method="post">
+    <?php echo $this->rzLevel->toForm(array('title', 'defaultEntranceId')); ?>
+    <br>
+    <input type="submit" value="Save Level" />
+</form>
