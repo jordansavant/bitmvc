@@ -36,6 +36,7 @@ class RZLevel extends RZBase
         $this->title = (string)$node->title;
         $this->rows = (string)$node->rows;
         $this->columns = (string)$node->columns;
+        $this->defaultEntranceId = (string)$node->defaultEntranceId;
         $this->tileMap = (string)$node->tileMap;
         $this->structureMap = (string)$node->structureMap;
         $this->characterMap = (string)$node->characterMap;

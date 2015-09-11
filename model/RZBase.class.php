@@ -62,7 +62,7 @@ abstract class RZBase
             if(!$this->canForm($key))
                 continue;
 
-            $hidden = (is_array($only) && !in_array($key, $only));
+            $hidden = (is_array($only) && !empty($only) && !in_array($key, $only));
 
             if($value instanceof RZBase)
             {
