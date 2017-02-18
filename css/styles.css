@@ -51,6 +51,7 @@ table.map
 {
     padding: 0px;
     border: 0px;
+    min-width: 30px;
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -106,6 +107,14 @@ table.map td.notile
     margin: 5px;
     border-radius: 4px;
     background-color: #999;
+}
+.structure2
+{
+    background-color: #ffffff;
+}
+.structure3
+{
+    background-color: #803803;
 }
 .character
 {

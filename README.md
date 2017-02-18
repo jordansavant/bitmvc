@@ -11,3 +11,8 @@ This README would normally document whatever steps are necessary to get your app
 
 * Clone into a webspace
 * Have PHP
+
+### How do I access a route? ###
+
+
+

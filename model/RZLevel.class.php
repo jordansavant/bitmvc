@@ -350,6 +350,15 @@ class RZLevel extends RZBase
                 $rzTile->type = RZConfig::getDefaultTileType();
                 $rzTile->id = $index + 1;
                 $this->addTileAtIndex($rzTile, $index);
+
+                if($i == 0 || $i == $this->rows - 1 || $j == 0 || $j == $this->columns - 1)
+                {
+                    $s = new RZStructure();
+                    $sid = $this->getNextStructureId();
+                    $s->type = '1';
+                    $s->create($sid);
+                    $this->addStructureAtIndex($s, $index);
+                }
             }
         }
     }

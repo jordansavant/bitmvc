@@ -13,7 +13,7 @@ function editLight(id)
 }
 </script>
 ##start-breadcrumb##
- &gt; <a href="index.php?c=<?=$C?>&o=editLevelPack&lp=<?=$this->lp?>">Level Pack</a>
+ &gt; <a href="index.php?c=<?php echo $C ?>&o=editLevelPack&lp=<?php echo $this->lp ?>">Level Pack</a>
 ##end##
 
 <h1>Edit Level: <?=$this->rzLevel->title?></h1>
@@ -45,10 +45,10 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
 
             if($rzStructure) {
                 echo "<br>".$structureTypes[$rzStructure->type]." ($rzStructure->id) <a href=\"javascript: editStructure($rzStructure->id);\">Edit</a>";
-                ?><a href="index.php?c=<?=$C?>&o=deleteStructure&lp=<?=$this->lp?>&lid=<?=$this->lid?>&sid=<?=$rzStructure->id?>">Delete</a><?
+                echo '<a href="index.php?c='.$C.'&o=deleteStructure&lp='.$this->lp.'&lid='.$this->lid.'&sid='.$rzStructure->id.'">Delete</a>';
             } else if($rzCharacter) {
                 echo "<br>".$characterTypes[$rzCharacter->type]." ($rzCharacter->id) <a href=\"javascript: editCharacter($rzCharacter->id)\">Edit</a>";
-                ?><a href="index.php?c=<?=$C?>&o=deleteCharacter&lp=<?=$this->lp?>&lid=<?=$this->lid?>&cid=<?=$rzCharacter->id?>">Delete</a><?
+                echo '<a href="index.php?c='.$C.'&o=deleteCharacter&lp='.$this->lp.'&lid='.$this->lid.'&cid='.$rzCharacter->id.'">Delete</a>';
             } else {
                 echo "<br><a href=\"index.php?c=$C&o=quickCreateStructure&lp=$this->lp&lid=$this->lid&index=$index\">Create Structure</a>";
                 echo "<br><a href=\"index.php?c=$C&o=quickCreateCharacter&lp=$this->lp&lid=$this->lid&index=$index\">Create Character</a>";
@@ -56,7 +56,7 @@ for($i=0; $i < $this->rzLevel->rows; $i++)
 
             if($rzLight) {
                 echo "<br>Light R$rzLight->red G$rzLight->green B$rzLight->blue ($rzLight->id) <a href=\"javascript: editLight($rzLight->id)\">Edit</a>";
-                ?><a href="index.php?c=<?=$C?>&o=deleteLight&lp=<?=$this->lp?>&lid=<?=$this->lid?>&hid=<?=$rzLight->id?>">Delete</a><?
+                echo '<a href="index.php?c='.$C.'&o=deleteLight&lp='.$this->lp.'&lid='.$this->lid.'&hid='.$rzLight->id.'">Delete</a>';
             } else {
                 echo "<br><a href=\"index.php?c=$C&o=createLight&lp=$this->lp&lid=$this->lid&index=$index\">Create Light</a>";
             }
