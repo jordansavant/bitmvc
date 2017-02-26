@@ -5959,7 +5959,7 @@
         </tile>
         <tile>
           <id>493</id>
-          <type>9</type>
+          <type>1</type>
           <enterEvents/>
           <exitEvents/>
           <entrances/>
