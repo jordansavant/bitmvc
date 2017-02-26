@@ -25,6 +25,14 @@ class RZConfig
             '3' => 'Magnum',
             '4' => 'Z4 Rifle',
             '5' => 'Crowbar',
+            '6' => 'Medkit',
+            '7' => 'Brick',
+            '8' => 'Grenade',
+            '9' => 'FootballPads',
+            '10' => 'CombatBoots',
+            '11' => 'RacingPants',
+            '12' => 'CleaningGloves',
+            '13' => 'GoldMedal',
         );
     }
 
@@ -64,6 +72,14 @@ class RZConfig
     {
         return array(
             '1' => 'Ground',
+            '2' => 'StairwellDown_South',
+            '3' => 'StairwellDown_East',
+            '4' => 'StairwellUp_North',
+            '5' => 'StairwellUp_West',
+            '6' => 'StairwellDown_North',
+            '7' => 'StairwellDown_West',
+            '8' => 'StairwellUp_South',
+            '9' => 'StairwellUp_East',
         );
     }
 
